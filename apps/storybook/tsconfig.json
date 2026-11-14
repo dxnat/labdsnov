@@ -15,5 +15,5 @@
       "labdsnov": ["../../packages/ui/src/index.ts"]
     }
   },
-  "include": [".storybook", "src", "../../packages/ui/src/css-modules.d.ts"]
+  "include": [".storybook", "../../packages/ui/src/css-modules.d.ts"]
 }

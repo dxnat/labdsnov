@@ -7,7 +7,7 @@ This file provides guidance to AI coding agents (Claude Code, Codex, etc.) worki
 A pnpm monorepo for **`labdsnov`**, a public npm design system based on [shadcn/ui](https://ui.shadcn.com) (React 19 + TypeScript, Tailwind CSS v4). Its components come from the DSADV member-portal app (`~/Desktop/dsadv`, a Next.js 16 app for a Thai-language superannuation portal). The app keeps its own copies, so the two codebases are separate.
 
 - `packages/ui`: the library (Badge, Button, Dialog, FundCard, Input, Label).
-- `apps/storybook`: Storybook 10 for checking component props and states (private, not published). Only Button has stories so far; add the other components one at a time.
+- `apps/storybook`: Storybook 10 config only (private, not published). It renders the `*.stories.tsx` files that sit next to each component in `packages/ui`. Every component has stories; add one for each new component.
 - Publishing is planned for a later milestone (Week 4). Don't `npm publish`/`pnpm publish`, and set `license`/access before doing so.
 
 ## Commands
@@ -29,7 +29,7 @@ There's no unit-test runner. Verify changes with typecheck, lint, build, by insp
 ## Component conventions (`packages/ui/src/components/<Name>/`)
 
 - **Base UI, not Radix.** Components wrap `@base-ui/react`. To render a custom element as a trigger/close, use the `render` prop (`<DialogTrigger render={<Button />}>`), not `asChild`. Icons are Hugeicons (`@hugeicons/react` + `@hugeicons/core-free-icons`), not lucide.
-- **One folder per component:** `<Name>.tsx` + `<Name>.module.css` + `index.ts` (optional `<Name>.md` docs, in Thai).
+- **One folder per component:** `<Name>.tsx` + `<Name>.module.css` + `index.ts` + `<Name>.stories.tsx` (optional `<Name>.md` docs, in Thai). Story files are excluded from `tsconfig.build.json`, and the Vite build only follows imports from `index.ts`, so they never reach `dist`. Storybook is a devDependency of `packages/ui` because stories import `storybook/test`.
 - **`<Name>.tsx` has no Tailwind class strings.** It maps semantic props to module classes through a typed lookup (`const variantClass = { default: styles.variantDefault, … } as const`; the `XVariant` type is `keyof typeof variantClass`). It merges the caller's `className` last with `cn(styles.root, variantClass[variant], className)`, using the `cn` package (shadcn's clsx + tailwind-merge replacement), and sets `data-slot`/`data-variant`/`data-size`. To add a look, add a prop and a module class; there is no `cva`.
 - **`<Name>.module.css`** starts with `@reference "../../styles/reference.css";` and `@layer theme, base, components, utilities;`. All rules go in `@layer components { … }` using `@apply`, so a consumer's Tailwind utilities passed via `className` always win.
   - Don't `@apply` `dark:`, `group-*:` or `peer-*:` in modules, because CSS Modules would rename `.dark`/`.group`/`.peer`. Write `:global(.dark) .x { @apply … }` instead.
@@ -58,14 +58,20 @@ There's no unit-test runner. Verify changes with typecheck, lint, build, by insp
 - **Loads the library from source, not `dist`.** `.storybook/main.ts` aliases `labdsnov` → `packages/ui/src/index.ts` and `labdsnov/styles.css` → `src/styles/index.css`, and adds `@tailwindcss/vite`, so component edits hot-reload without `pnpm build`. `tsconfig.json` `paths` mirrors the alias for typechecking.
 - **`.storybook/preview.ts`:**
   - imports `labdsnov/styles.css` exactly as a consumer would, then `preview.css`
-  - `preview.css` adds Tailwind utilities for the tokens, generated only from files in `apps/storybook`, for story layout and `className`-override stories; it also sets `--font-heading` (IBM Plex Sans Thai, loaded in `preview-head.html`)
+  - `preview.css` adds Tailwind utilities for the tokens, for story layout and `className`-override stories. They're generated from `apps/storybook` plus an explicit `@source` for `packages/ui/src/**/*.stories.tsx`. It also sets `--font-heading` (IBM Plex Sans Thai, loaded in `preview-head.html`)
   - the `@storybook/addon-themes` toolbar toggles `.dark` on `<html>`; a story can force it with `globals: { theme: "dark" }`
-- **Stories live in `apps/storybook/src/<Name>.stories.tsx`**, not in `packages/ui`, so they never ship. They import from `"labdsnov"` (the public API only). Follow `Button.stories.tsx`:
+- **Stories live next to the component** (`packages/ui/src/components/<Name>/<Name>.stories.tsx`) and import it relatively (`./Button`). Use only what the component's `index.ts` exports. `.storybook/main.ts` globs `packages/ui/src/**/*.stories.@(ts|tsx)`; restart Storybook after changing that glob. Follow `Button.stories.tsx`:
   - `tags: ["autodocs"]`, with `fn()` for event props
   - select controls built from `Object.keys({...} satisfies Record<XVariant, true>)`, so typecheck fails when a variant or size changes
   - one story per state (disabled, `aria-invalid`, `aria-expanded`, keyboard focus, dark), each with a `play` assertion where one makes sense
   - Thai copy, and an `aria-label` on icon-only buttons
 - Hover and `:active` styles can't be forced in a story; check them by hand.
+- **Play-function pitfalls** (each one caused a false failure):
+  - **Typing:** `userEvent.type` changes an Input's value but never fires React's `onChange` on Base UI's `Input`. Use `fireEvent.change(input, { target: { value } })` to check `onChange`. Focus, tab and click via `userEvent` are fine.
+  - **Dialog:** the popup is portalled to `document.body`, so query it with `screen`, not `canvas`. Assert closing by state (trigger `aria-expanded="false"`, popup `data-closed`), not by the popup leaving the DOM. Base UI unmounts only after the exit animation, and animations pause when the page is hidden, e.g. a background tab or Claude's browser pane while the app is unfocused.
+  - **Modal stories:** stories rendered with `defaultOpen` need `tags: ["!autodocs"]`, or the modal covers the Docs page.
+- **Static files:** `.storybook/main.ts` `staticDirs: ["../public"]` serves `apps/storybook/public`. The FundCard stories use `/funds/*.svg`, copied from the app's `public/funds`.
+- **Storybook `date` controls yield a timestamp:** convert to `Date` in the story's `render` (see `FundCard.stories.tsx`).
 
 ## Checking a build
 

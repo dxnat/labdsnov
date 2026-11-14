@@ -1,9 +1,11 @@
 /*
  * Storybook only. Tailwind utilities (with the design tokens) for story
  * layout and for checking that a consumer's `className` overrides component
- * styles. Utilities are generated from the files in apps/storybook.
+ * styles. Utilities are generated from apps/storybook and from the story
+ * files next to each component (outside this app, so listed explicitly).
  */
 @import "../../../packages/ui/src/styles/reference.css";
+@source "../../../packages/ui/src/**/*.stories.tsx";
 
 :root {
   /* The app loads IBM Plex Sans Thai with next/font as --font-heading. */

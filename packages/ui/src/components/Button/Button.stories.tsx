@@ -12,7 +12,7 @@ import {
   buttonVariants,
   type ButtonSize,
   type ButtonVariant,
-} from "labdsnov"
+} from "./Button"
 
 // `satisfies Record<…>` makes typecheck fail if a variant/size is added to or
 // removed from Button without updating these stories.

@@ -7,8 +7,11 @@ const uiSrc = fileURLToPath(new URL("../../../packages/ui/src/", import.meta.url
 
 const config: StorybookConfig = {
   framework: "@storybook/nextjs-vite",
-  stories: ["../src/**/*.stories.@(ts|tsx)"],
+  // Stories sit next to each component in packages/ui.
+  stories: ["../../../packages/ui/src/**/*.stories.@(ts|tsx)"],
   addons: ["@storybook/addon-docs", "@storybook/addon-themes"],
+  // Fund images for FundCard stories (copied from the app's public/funds).
+  staticDirs: ["../public"],
   async viteFinal(config) {
     config.plugins = [...(config.plugins ?? []), tailwindcss()]
     // Load the library from source (not dist) so edits hot-reload without a build.
