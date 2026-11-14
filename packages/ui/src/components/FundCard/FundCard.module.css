@@ -1,0 +1,51 @@
+/*
+ * FundCard styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply flex min-w-0 flex-col overflow-hidden rounded-3xl bg-card text-card-foreground ring-1 ring-foreground/10;
+  }
+
+  /* ---------- Image ---------- */
+  .media {
+    @apply relative aspect-square w-full overflow-hidden bg-muted;
+  }
+
+  .image {
+    @apply object-cover;
+  }
+
+  .placeholder {
+    @apply flex size-full items-center justify-center text-muted-foreground [&_svg]:size-10;
+  }
+
+  /* ---------- Body ---------- */
+  .body {
+    @apply flex flex-1 flex-col gap-1 p-4;
+  }
+
+  .manager {
+    @apply truncate text-xs text-muted-foreground;
+  }
+
+  .name {
+    @apply font-heading text-base leading-snug font-medium text-pretty;
+  }
+
+  .price {
+    @apply mt-auto flex flex-wrap items-baseline gap-x-2 pt-3;
+  }
+
+  .priceValue {
+    @apply text-lg font-semibold tabular-nums;
+  }
+
+  .priceMeta {
+    @apply text-xs text-muted-foreground;
+  }
+}

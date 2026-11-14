@@ -1,0 +1,31 @@
+/*
+ * Label styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply flex items-center gap-2 text-sm leading-none font-medium select-none;
+  }
+
+  /* Appends a red asterisk after the label text. */
+  .required {
+    @apply after:-ms-1 after:text-destructive after:content-['*'];
+  }
+
+  /*
+   * Dimmed when a parent `.group` is disabled or a preceding `.peer` input is.
+   * Written with :global() because Tailwind's group-/peer- variants would
+   * reference `.group`/`.peer`, which CSS Modules would rename.
+   */
+  :global(.group)[data-disabled="true"] .root {
+    @apply pointer-events-none opacity-50;
+  }
+
+  :global(.peer):disabled ~ .root {
+    @apply cursor-not-allowed opacity-50;
+  }
+}

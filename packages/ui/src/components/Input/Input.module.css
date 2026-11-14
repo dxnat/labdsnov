@@ -1,0 +1,38 @@
+/*
+ * Input styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  /* ---------- Base ---------- */
+  .root {
+    @apply h-9 w-full min-w-0 rounded-3xl border px-3 py-1 text-base transition-[color,box-shadow,background-color] outline-none md:text-sm;
+    @apply file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground;
+    @apply placeholder:text-muted-foreground;
+  }
+
+  /* ---------- Variants ---------- */
+  /* Tinted background, no visible border (shadcn default). */
+  .variantFilled {
+    @apply border-transparent bg-input/50;
+  }
+
+  /* Transparent background with a border. */
+  .variantOutline {
+    @apply border-input bg-transparent;
+  }
+
+  /* ---------- States (after variants so they take precedence) ---------- */
+  .root {
+    @apply focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30;
+    @apply disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50;
+    @apply aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20;
+  }
+
+  :global(.dark) .root {
+    @apply aria-invalid:border-destructive/50 aria-invalid:ring-destructive/40;
+  }
+}

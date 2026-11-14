@@ -1,0 +1,6 @@
+/*
+ * Build-time only. Component CSS modules `@reference` this file so @apply can
+ * resolve Tailwind utilities and the design tokens. @reference emits no CSS.
+ */
+@import "tailwindcss";
+@import "./theme.css";

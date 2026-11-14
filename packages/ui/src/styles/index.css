@@ -1,0 +1,37 @@
+/*
+ * Shipped as `labdsnov/styles.css`. Vite appends the compiled component
+ * CSS modules after this file.
+ *
+ * - Full Tailwind theme variables (static) so compiled @apply output, e.g.
+ *   `calc(var(--spacing) * 9)`, resolves without the consumer's Tailwind.
+ * - Preflight, so buttons/inputs look the same with or without Tailwind.
+ * - No utilities: a consumer's own Tailwind utilities still win, because
+ *   component rules live in the earlier `components` layer.
+ */
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme) theme(static);
+@import "tailwindcss/preflight.css" layer(base);
+@import "./theme.css";
+/* Registers utilities for the @apply rules below; source(none) emits none. */
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+  }
+}

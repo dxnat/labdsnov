@@ -1,0 +1,112 @@
+/*
+ * Button styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * Note: `dark:` cannot be @apply'd in a CSS module (it would hash `.dark`),
+ * so dark rules use `:global(.dark)` selectors instead.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  /* ---------- Base ---------- */
+  .root {
+    @apply inline-flex shrink-0 items-center justify-center rounded-4xl border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none;
+    @apply [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  /* ---------- Variants ---------- */
+  .variantDefault {
+    @apply bg-primary text-primary-foreground hover:bg-primary/80;
+  }
+
+  .variantOutline {
+    @apply border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground;
+  }
+
+  .variantSecondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground;
+  }
+
+  .variantGhost {
+    @apply hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground;
+  }
+
+  .variantDestructive {
+    @apply bg-destructive/10 text-destructive hover:bg-destructive/20;
+  }
+
+  .variantLink {
+    @apply text-primary underline-offset-4 hover:underline;
+  }
+
+  :global(.dark) .variantOutline {
+    @apply bg-transparent hover:bg-input/30;
+  }
+
+  :global(.dark) .variantGhost {
+    @apply hover:bg-muted/50;
+  }
+
+  :global(.dark) .variantDestructive {
+    @apply bg-destructive/20 hover:bg-destructive/30;
+  }
+
+  /* ---------- Sizes ---------- */
+  .sizeDefault {
+    @apply h-9 gap-1.5 px-3 has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5;
+  }
+
+  .sizeXs {
+    @apply h-6 gap-1 px-2.5 text-xs has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*='size-'])]:size-3;
+  }
+
+  .sizeSm {
+    @apply h-8 gap-1 px-3 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
+  }
+
+  .sizeLg {
+    @apply h-10 gap-1.5 px-4 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3;
+  }
+
+  .sizeIcon {
+    @apply size-9;
+  }
+
+  .sizeIconXs {
+    @apply size-6 [&_svg:not([class*='size-'])]:size-3;
+  }
+
+  .sizeIconSm {
+    @apply size-8;
+  }
+
+  .sizeIconLg {
+    @apply size-10;
+  }
+
+  /* ---------- Modifiers ---------- */
+  .fullWidth {
+    @apply w-full;
+  }
+
+  /* ---------- States (after variants so they take precedence) ---------- */
+  .root {
+    @apply focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30;
+    @apply active:not-aria-[haspopup]:translate-y-px;
+    @apply disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50;
+    @apply aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20;
+  }
+
+  :global(.dark) .root {
+    @apply aria-invalid:border-destructive/50 aria-invalid:ring-destructive/40;
+  }
+
+  .variantDestructive {
+    @apply focus-visible:border-destructive/40 focus-visible:ring-destructive/20;
+  }
+
+  :global(.dark) .variantDestructive {
+    @apply focus-visible:ring-destructive/40;
+  }
+}
