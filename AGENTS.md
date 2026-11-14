@@ -7,7 +7,7 @@ This file provides guidance to AI coding agents (Claude Code, Codex, etc.) worki
 A pnpm monorepo for **`labdsnov`**, a public npm design system based on [shadcn/ui](https://ui.shadcn.com) (React 19 + TypeScript, Tailwind CSS v4). Its components come from the DSADV member-portal app (`~/Desktop/dsadv`, a Next.js 16 app for a Thai-language superannuation portal). The app keeps its own copies, so the two codebases are separate.
 
 - `packages/ui`: the library (Badge, Button, Dialog, FundCard, Input, Label).
-- `apps/*`: reserved. `apps/storybook` is the next step; there is no docs app or test runner yet.
+- `apps/storybook`: Storybook 10 for checking component props and states (private, not published). Only Button has stories so far; add the other components one at a time.
 - Publishing is planned for a later milestone (Week 4). Don't `npm publish`/`pnpm publish`, and set `license`/access before doing so.
 
 ## Commands
@@ -19,10 +19,12 @@ pnpm typecheck
 pnpm lint                           # eslint (typescript-eslint + react-hooks) over the repo
 pnpm format                         # prettier with prettier-plugin-tailwindcss
 pnpm pack:dry                       # what labdsnov would publish
-pnpm --filter labdsnov build       # one package
+pnpm --filter labdsnov build        # one package
+pnpm storybook                      # http://localhost:6006
+pnpm build-storybook                # static build to apps/storybook/storybook-static
 ```
 
-There are no tests yet. Verify changes with typecheck, lint, build, and by inspecting `packages/ui/dist/` (see "Checking a build").
+There's no unit-test runner. Verify changes with typecheck, lint, build, by inspecting `packages/ui/dist/` (see "Checking a build"), and in Storybook: story `play` functions are interaction checks, shown as pass/fail in the Interactions panel.
 
 ## Component conventions (`packages/ui/src/components/<Name>/`)
 
@@ -49,6 +51,21 @@ There are no tests yet. Verify changes with typecheck, lint, build, and by inspe
 - ESM only, with `preserveModules`, so there's one output file per source file. Module classes are scoped as `dsadv_[local]_[hash]`.
 - Rollup strips module-level directives. The local `preserveUseClient` plugin re-adds `"use client"` to outputs whose source starts with it.
 - Everything in `dependencies`/`peerDependencies` is external: `react`, `react-dom` and `next` are peers (`next` because FundCard uses `next/image`). Types come from `tsc -p tsconfig.build.json`.
+
+## Storybook (`apps/storybook`)
+
+- **Framework:** `@storybook/nextjs-vite`, so `next/image` in FundCard works. The `styled-jsx` "Failed to resolve dependency" warning at startup is harmless.
+- **Loads the library from source, not `dist`.** `.storybook/main.ts` aliases `labdsnov` → `packages/ui/src/index.ts` and `labdsnov/styles.css` → `src/styles/index.css`, and adds `@tailwindcss/vite`, so component edits hot-reload without `pnpm build`. `tsconfig.json` `paths` mirrors the alias for typechecking.
+- **`.storybook/preview.ts`:**
+  - imports `labdsnov/styles.css` exactly as a consumer would, then `preview.css`
+  - `preview.css` adds Tailwind utilities for the tokens, generated only from files in `apps/storybook`, for story layout and `className`-override stories; it also sets `--font-heading` (IBM Plex Sans Thai, loaded in `preview-head.html`)
+  - the `@storybook/addon-themes` toolbar toggles `.dark` on `<html>`; a story can force it with `globals: { theme: "dark" }`
+- **Stories live in `apps/storybook/src/<Name>.stories.tsx`**, not in `packages/ui`, so they never ship. They import from `"labdsnov"` (the public API only). Follow `Button.stories.tsx`:
+  - `tags: ["autodocs"]`, with `fn()` for event props
+  - select controls built from `Object.keys({...} satisfies Record<XVariant, true>)`, so typecheck fails when a variant or size changes
+  - one story per state (disabled, `aria-invalid`, `aria-expanded`, keyboard focus, dark), each with a `play` assertion where one makes sense
+  - Thai copy, and an `aria-label` on icon-only buttons
+- Hover and `:active` styles can't be forced in a story; check them by hand.
 
 ## Checking a build
 
