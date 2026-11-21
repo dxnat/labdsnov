@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { expect, screen, waitFor } from "storybook/test"
 
+import { usageDoc } from "../../storybook/usageDoc"
+
 import { Button } from "../Button"
 import { Input } from "../Input"
 import { Label } from "../Label"
@@ -15,6 +17,7 @@ import {
   DialogTrigger,
   type DialogSize,
 } from "./Dialog"
+import guidelines from "./Dialog.md?raw"
 
 // `satisfies Record<…>` makes typecheck fail if a size is added to or
 // removed from DialogContent without updating these stories.
@@ -36,6 +39,8 @@ const meta = {
   title: "Components/Dialog",
   component: DialogContent,
   tags: ["autodocs"],
+  // Usage guidelines from the doc beside the component, shown on the Docs page.
+  parameters: { docs: { description: { component: usageDoc(guidelines) } } },
   args: {
     size: "default",
     showCloseButton: true,

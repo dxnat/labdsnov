@@ -1,0 +1,58 @@
+/*
+ * Switch styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * shadcn sizes the thumb with `group-data-[size=…]/switch:`; here it's a
+ * descendant rule between module classes (`.sizeSm .thumb`).
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  /* ---------- Track ---------- */
+  .root {
+    @apply relative inline-flex shrink-0 items-center rounded-full border-2 transition-all outline-none;
+    /* Larger hit area than the track. */
+    @apply after:absolute after:-inset-x-3 after:-inset-y-2;
+    @apply data-checked:border-primary data-checked:bg-primary;
+    @apply data-unchecked:border-transparent data-unchecked:bg-input/90;
+  }
+
+  /* ---------- Thumb ---------- */
+  .thumb {
+    @apply pointer-events-none block rounded-full bg-background bg-clip-padding shadow-sm ring-0 transition-transform;
+    @apply data-checked:translate-x-[calc(100%-8px)] data-unchecked:translate-x-0;
+  }
+
+  :global(.dark) .thumb {
+    @apply bg-clip-border data-checked:bg-primary-foreground data-unchecked:bg-foreground;
+  }
+
+  /* ---------- Sizes ---------- */
+  .sizeDefault {
+    @apply h-5 w-11;
+  }
+
+  .sizeDefault .thumb {
+    @apply h-4 w-6;
+  }
+
+  .sizeSm {
+    @apply h-4 w-7;
+  }
+
+  .sizeSm .thumb {
+    @apply h-3 w-4;
+  }
+
+  /* ---------- States (after sizes so they take precedence) ---------- */
+  .root {
+    @apply focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30;
+    @apply data-disabled:cursor-not-allowed data-disabled:opacity-50;
+    @apply aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20;
+  }
+
+  :global(.dark) .root {
+    @apply aria-invalid:border-destructive/50 aria-invalid:ring-destructive/40;
+  }
+}

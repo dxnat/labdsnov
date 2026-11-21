@@ -1,0 +1,29 @@
+/*
+ * Progress styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply flex flex-wrap gap-3;
+  }
+
+  .track {
+    @apply relative flex h-3 w-full items-center overflow-x-hidden rounded-full bg-muted;
+  }
+
+  .indicator {
+    @apply h-full bg-primary transition-all;
+  }
+
+  .label {
+    @apply text-sm font-medium;
+  }
+
+  .value {
+    @apply ml-auto text-sm text-muted-foreground tabular-nums;
+  }
+}

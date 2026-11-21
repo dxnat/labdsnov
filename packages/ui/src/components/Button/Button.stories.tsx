@@ -7,12 +7,15 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { expect, fn } from "storybook/test"
 
+import { usageDoc } from "../../storybook/usageDoc"
+
 import {
   Button,
   buttonVariants,
   type ButtonSize,
   type ButtonVariant,
 } from "./Button"
+import guidelines from "./Button.md?raw"
 
 // `satisfies Record<…>` makes typecheck fail if a variant/size is added to or
 // removed from Button without updating these stories.
@@ -43,6 +46,8 @@ const meta = {
   title: "Components/Button",
   component: Button,
   tags: ["autodocs"],
+  // Usage guidelines from the doc beside the component, shown on the Docs page.
+  parameters: { docs: { description: { component: usageDoc(guidelines) } } },
   args: {
     children: "เข้าสู่ระบบ",
     variant: "default",

@@ -1,0 +1,25 @@
+/*
+ * Textarea styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * Matches Input's `filled` look; `field-sizing: content` makes it grow with text.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply flex field-sizing-content min-h-16 w-full resize-none rounded-2xl border border-transparent bg-input/50 px-3 py-3 text-base transition-[color,box-shadow,background-color] outline-none placeholder:text-muted-foreground md:text-sm;
+  }
+
+  /* ---------- States ---------- */
+  .root {
+    @apply focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30;
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
+    @apply aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20;
+  }
+
+  :global(.dark) .root {
+    @apply aria-invalid:border-destructive/50 aria-invalid:ring-destructive/40;
+  }
+}

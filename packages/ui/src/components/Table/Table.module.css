@@ -1,0 +1,45 @@
+/*
+ * Table styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .container {
+    @apply relative w-full overflow-x-auto;
+  }
+
+  .table {
+    @apply w-full caption-bottom text-sm;
+  }
+
+  .header {
+    @apply [&_tr]:border-b;
+  }
+
+  .body {
+    @apply [&_tr:last-child]:border-0;
+  }
+
+  .footer {
+    @apply border-t bg-muted/50 font-medium [&>tr]:last:border-b-0;
+  }
+
+  .row {
+    @apply border-b transition-colors hover:bg-muted/50 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted;
+  }
+
+  .head {
+    @apply h-12 px-3 text-left align-middle font-medium whitespace-nowrap text-foreground [&:has([role=checkbox])]:pr-0;
+  }
+
+  .cell {
+    @apply p-3 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0;
+  }
+
+  .caption {
+    @apply mt-4 text-sm text-muted-foreground;
+  }
+}
