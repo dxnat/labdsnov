@@ -6,7 +6,7 @@ This file provides guidance to AI coding agents (Claude Code, Codex, etc.) worki
 
 A pnpm monorepo for **`labdsnov`**, a public npm design system based on [shadcn/ui](https://ui.shadcn.com) (React 19 + TypeScript, Tailwind CSS v4). Its components come from the DSADV member-portal app (`~/Desktop/dsadv`, a Next.js 16 app for a Thai-language superannuation portal). The app keeps its own copies, so the two codebases are separate.
 
-- `packages/ui`: the library (Accordion, Alert, AlertDialog, Avatar, Badge, Breadcrumb, Button, Calendar, Card, Chart, Checkbox, Combobox, DatePicker, Dialog, Drawer, DropdownMenu, Empty, Field, FundCard, Input, InputGroup, InputOTP, Label, NavigationMenu, Pagination, Popover, Progress, RadioGroup, Select, Separator, Skeleton, Spinner, Switch, Table, Tabs, Textarea, Toaster, Tooltip). Most are ported from shadcn's `base-luma` style (the app's `components.json` style); FundCard is the app's own, and DatePicker composes Popover + Calendar + Button (shadcn only has a recipe for it).
+- `packages/ui`: the library (Accordion, Alert, AlertDialog, Avatar, Badge, Breadcrumb, Button, ButtonGroup, Calendar, Card, Chart, Checkbox, Collapsible, Combobox, DatePicker, Dialog, Drawer, DropdownMenu, Empty, Field, FundCard, HoverCard, Input, InputGroup, InputOTP, Kbd, Label, NavigationMenu, Pagination, Popover, Progress, RadioGroup, ScrollArea, Select, Separator, Skeleton, Slider, Spinner, Switch, Table, Tabs, Textarea, Toaster, Toggle, ToggleGroup, Tooltip). Most are ported from shadcn's `base-luma` style (the app's `components.json` style); FundCard is the app's own, and DatePicker composes Popover + Calendar + Button (shadcn only has a recipe for it).
 - `apps/storybook`: Storybook 10 config only (private, not published). It renders the `*.stories.tsx` files that sit next to each component in `packages/ui`. Every component has stories; add one for each new component.
 - Publishing is planned for a later milestone (Week 4). Don't `npm publish`/`pnpm publish`, and set `license`/access before doing so.
 
@@ -65,7 +65,7 @@ There's no unit-test runner. Verify changes with typecheck, lint, build, `pnpm t
 - **Dates are Thai with the Buddhist year** (`th-TH`, e.g. "13 พ.ย. 2569"): FundCard, DatePicker and Calendar. Calendar takes month and weekday names from `react-day-picker/locale` `th` and formats captions, the year dropdown and day labels with `Intl`, because `date-fns` `th` uses the Gregorian year.
 - **Links that look like buttons are `<a>` with `buttonVariants()`**, not `Button` with `render={<a />}`: Base UI's Button gives non-`<button>` elements `role="button"`, so screen readers stop calling them links (see Pagination).
 - **Public API = `src/index.ts`.** Renaming or removing an export, prop or variant is a breaking change.
-- **`"use client"`** goes on any component that calls hooks or React context (Badge, Breadcrumb, Calendar, Chart, Combobox, DatePicker, Dialog, Drawer, Field, InputOTP, Label, Toaster). Base UI primitives already carry their own directive. Wrappers that only render Base UI parts (e.g. Button, Select, Tabs) don't need it.
+- **`"use client"`** goes on any component that calls hooks or React context (Badge, Breadcrumb, ButtonGroup, Calendar, Chart, Combobox, DatePicker, Dialog, Drawer, Field, InputOTP, Label, Toaster, ToggleGroup). Base UI primitives already carry their own directive. Wrappers that only render Base UI parts (e.g. Button, Select, Tabs, Toggle, Slider) don't need it. ButtonGroup needs it for `useRender`, ToggleGroup for its context.
 
 ## Styles and tokens
 
@@ -93,7 +93,7 @@ There's no unit-test runner. Verify changes with typecheck, lint, build, `pnpm t
   - imports `labdsnov/styles.css` exactly as a consumer would, then `preview.css`
   - `preview.css` adds Tailwind utilities for the tokens, for story layout and `className`-override stories. They're generated from `apps/storybook` plus an explicit `@source` for `packages/ui/src/**/*.stories.tsx`. It also sets `--font-heading` (IBM Plex Sans Thai, loaded in `preview-head.html`)
   - the `@storybook/addon-themes` toolbar toggles `.dark` on `<html>`; a story can force it with `globals: { theme: "dark" }`
-- **Docs pages**: `.storybook/main.ts` also loads `packages/ui/docs/*.mdx`; `preview.ts` `storySort` puts Guides, then Foundations, then Components. MDX pages render their `.md` with `<Markdown>{usageDoc(doc, { keepTitle: true })}</Markdown>`. The colour pages add `TokenSwatches` (`src/storybook/TokenSwatches.tsx`), which parses `theme.css?raw` and shows light and dark values side by side.
+- **Docs pages**: `.storybook/main.ts` also loads `packages/ui/docs/*.mdx`; `preview.ts` `storySort` puts Overview, Guides, Foundations, then Components. `docs/Overview.mdx` shows the component count and list from `src/storybook/ComponentIndex.tsx`, which globs every `components/*/<Name>.md` (count, name, Purpose line), so it updates itself when a component is added. MDX pages render their `.md` with `<Markdown>{usageDoc(doc, { keepTitle: true })}</Markdown>`. The colour pages add `TokenSwatches` (`src/storybook/TokenSwatches.tsx`), which parses `theme.css?raw` and shows light and dark values side by side.
 - **Stories live next to the component** (`packages/ui/src/components/<Name>/<Name>.stories.tsx`) and import it relatively (`./Button`). Use only what the component's `index.ts` exports. `.storybook/main.ts` globs `packages/ui/src/**/*.stories.@(ts|tsx)`; restart Storybook after changing that glob. Follow `Button.stories.tsx`:
   - `tags: ["autodocs"]`, with `fn()` for event props
   - select controls built from `Object.keys({...} satisfies Record<XVariant, true>)`, so typecheck fails when a variant or size changes
@@ -111,6 +111,6 @@ There's no unit-test runner. Verify changes with typecheck, lint, build, `pnpm t
 
 ## Checking a build
 
-- `grep -l '^"use client"' dist/components/*/*.js` should list exactly Badge, Breadcrumb, Calendar, Chart, Combobox, DatePicker, Dialog, Drawer, Field, InputOTP, Label, Toaster.
+- `grep -l '^"use client"' dist/components/*/*.js` should list exactly Badge, Breadcrumb, ButtonGroup, Calendar, Chart, Combobox, DatePicker, Dialog, Drawer, Field, InputOTP, Label, Toaster, ToggleGroup.
 - `dist/styles.css` should keep the layer order `properties < theme < base < components < utilities` and contain no plain utility classes (e.g. no `.flex{`).
 - The Vite warning "Error when using sourcemap for reporting an error" on the `"use client"` files is expected.

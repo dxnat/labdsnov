@@ -77,11 +77,11 @@ token เฉพาะของคอมโพเนนต์นี้ ชี้�
 | Token                 | โหมดสว่าง             | โหมดมืด              | ใช้ใน                                            |
 | --------------------- | -------------------- | ------------------- | ----------------------------------------------- |
 | `--field-placeholder` | `--muted-foreground` | –                   | placeholder                                     |
-| `--field-border`      | `--control-border`   | –                   | เส้นขอบช่องกรอก (contrast 3:1)                    |
+| `--field-border`      | `--control-border`   | –                   | เส้นขอบช่องกรอก                                   |
 | `--field-bg`          | `--input` 50%        | –                   | พื้นช่องกรอก                                       |
-| `--focus-ring`        | `--ring`             | –                   | วงแหวน focus จากคีย์บอร์ด (ทึบ 2px)                 |
+| `--focus-ring`        | `--ring`             | –                   | วงแหวน focus จากคีย์บอร์ดของทุกคอมโพเนนต์ (ทึบ 2px)   |
 | `--invalid-border`    | `--destructive`      | –                   | เส้นขอบเมื่อข้อมูลไม่ถูกต้อง และวงแหวน focus ขณะไม่ถูกต้อง |
-| `--invalid-ring`      | `--destructive` 20%  | `--destructive` 40% | วงแหวนจางรอบช่องที่ไม่ถูกต้อง                         |
+| `--invalid-ring`      | `--destructive` 20%  | `--destructive` 40% | วงแหวนจางรอบช่องที่ไม่ถูกต้อง (ตกแต่ง)                 |
 
 ### Semantic tokens
 

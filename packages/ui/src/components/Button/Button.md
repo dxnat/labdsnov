@@ -122,9 +122,9 @@ token เฉพาะของคอมโพเนนต์นี้ ชี้�
 | `--button-destructive-fg`       | `--destructive`                    | –                      | ตัวอักษร `destructive`                            |
 | `--button-destructive-hover-bg` | `--destructive` 18%                | `--destructive` 30%    | พื้น `destructive` ตอน hover                      |
 | `--button-link-fg`              | `--primary`                        | –                      | ตัวอักษร `link`                                   |
-| `--focus-ring`                  | `--ring`                           | –                      | วงแหวน focus จากคีย์บอร์ด (ทึบ 2px)                 |
+| `--focus-ring`                  | `--ring`                           | –                      | วงแหวน focus จากคีย์บอร์ดของทุกคอมโพเนนต์ (ทึบ 2px)   |
 | `--invalid-border`              | `--destructive`                    | –                      | เส้นขอบเมื่อข้อมูลไม่ถูกต้อง และวงแหวน focus ขณะไม่ถูกต้อง |
-| `--invalid-ring`                | `--destructive` 20%                | `--destructive` 40%    | วงแหวนจางรอบช่องที่ไม่ถูกต้อง                         |
+| `--invalid-ring`                | `--destructive` 20%                | `--destructive` 40%    | วงแหวนจางรอบช่องที่ไม่ถูกต้อง (ตกแต่ง)                 |
 
 ### Semantic tokens
 

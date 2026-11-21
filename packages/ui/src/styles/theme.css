@@ -178,6 +178,36 @@
   --calendar-range-bg: var(--muted);
   --calendar-today-bg: var(--muted);
   --calendar-label-fg: var(--muted-foreground);
+
+  /* Toggle, ToggleGroup */
+  --toggle-fg: var(--muted-foreground);
+  --toggle-hover-bg: var(--muted);
+  --toggle-hover-fg: var(--foreground);
+  --toggle-pressed-bg: var(--muted);
+  --toggle-pressed-fg: var(--foreground);
+  --toggle-pressed-border: var(--control-border);
+  --toggle-outline-border: var(--border);
+
+  /* ButtonGroup */
+  --button-group-text-bg: var(--muted);
+  --button-group-text-fg: var(--foreground);
+  --button-group-separator: var(--input);
+
+  /* Kbd */
+  --kbd-bg: var(--muted);
+  --kbd-fg: var(--muted-foreground);
+  --kbd-tooltip-bg: color-mix(in oklab, var(--tooltip-fg) 20%, transparent);
+  --kbd-tooltip-fg: var(--tooltip-fg);
+
+  /* Slider */
+  --slider-track: var(--muted);
+  --slider-track-border: var(--control-border);
+  --slider-range: var(--primary);
+  --slider-thumb-bg: var(--background);
+  --slider-thumb-border: var(--primary);
+
+  /* ScrollArea */
+  --scroll-area-thumb: var(--control-border);
 }
 
 .dark {
@@ -195,6 +225,7 @@
   --switch-thumb: var(--foreground);
   --tabs-trigger-active-bg: var(--input);
   --menu-destructive-highlight-bg: color-mix(in oklab, var(--destructive) 20%, transparent);
+  --kbd-tooltip-bg: color-mix(in oklab, var(--tooltip-fg) 12%, transparent);
 }
 
 @theme inline {

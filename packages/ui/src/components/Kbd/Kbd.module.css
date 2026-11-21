@@ -1,0 +1,22 @@
+/*
+ * Kbd styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * Inside a Tooltip it's matched through the tooltip's data-slot.
+ */
+@reference "../../styles/reference.css";
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply pointer-events-none inline-flex h-5.5 w-fit min-w-5.5 items-center justify-center gap-1 rounded-lg bg-(--kbd-bg) px-1.5 font-sans text-xs font-medium text-(--kbd-fg) select-none;
+    @apply [&_svg:not([class*='size-'])]:size-3;
+  }
+
+  :where([data-slot="tooltip-content"]) .root {
+    @apply bg-(--kbd-tooltip-bg) text-(--kbd-tooltip-fg);
+  }
+
+  .group {
+    @apply inline-flex items-center gap-1;
+  }
+}

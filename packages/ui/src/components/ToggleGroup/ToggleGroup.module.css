@@ -1,0 +1,50 @@
+/*
+ * ToggleGroup styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * Items use Toggle's classes (toggleVariants) plus `.item` from here.
+ * shadcn's `group-data-[spacing=0]/toggle-group:` rules are descendant rules
+ * on `.joined` (spacing={0}) and the group's data-orientation.
+ */
+@reference "../../styles/reference.css";
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply flex w-fit flex-row items-center gap-[calc(var(--spacing)*var(--gap))];
+    @apply data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch;
+  }
+
+  .item {
+    @apply relative shrink-0 focus:z-10 focus-visible:z-10 data-pressed:z-10;
+  }
+
+  /* ---------- spacing={0}: one joined bar ---------- */
+  .joined .item {
+    @apply rounded-none px-3 shadow-none;
+  }
+
+  .joined[data-orientation="horizontal"] .item:first-child {
+    @apply rounded-l-3xl;
+  }
+
+  .joined[data-orientation="horizontal"] .item:last-child {
+    @apply rounded-r-3xl;
+  }
+
+  .joined[data-orientation="vertical"] .item:first-child {
+    @apply rounded-t-3xl;
+  }
+
+  .joined[data-orientation="vertical"] .item:last-child {
+    @apply rounded-b-3xl;
+  }
+
+  /* Outline items share borders instead of doubling them. */
+  .joined[data-orientation="horizontal"] .item + .item {
+    @apply -ml-px;
+  }
+
+  .joined[data-orientation="vertical"] .item + .item {
+    @apply -mt-px;
+  }
+}

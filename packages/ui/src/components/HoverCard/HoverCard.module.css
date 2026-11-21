@@ -1,0 +1,24 @@
+/*
+ * HoverCard styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * Same surface as Popover.
+ */
+@reference "../../styles/reference.css";
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .positioner {
+    @apply isolate z-50;
+  }
+
+  .content {
+    @apply z-50 w-72 origin-(--transform-origin) rounded-3xl bg-popover p-4 text-sm text-popover-foreground shadow-lg ring-1 ring-foreground/5 outline-hidden duration-100;
+    @apply data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2;
+    @apply data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2;
+    @apply data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95;
+  }
+
+  :global(.dark) .content {
+    @apply ring-foreground/10;
+  }
+}

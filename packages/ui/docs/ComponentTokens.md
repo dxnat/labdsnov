@@ -141,6 +141,51 @@ TODO: ยังไม่ได้ตัดสินใจว่า component tok
 | `--calendar-today-bg`        | `--muted`              | –      | พื้นวันนี้                     |
 | `--calendar-label-fg`        | `--muted-foreground`   | –      | ชื่อวันในสัปดาห์, เลขสัปดาห์     |
 
+### Toggle, ToggleGroup
+
+| Token                     | โหมดสว่าง             | โหมดมืด | ใช้กับ                            |
+| ------------------------- | -------------------- | ------ | ------------------------------- |
+| `--toggle-fg`             | `--muted-foreground` | –      | ตัวอักษร/ไอคอนตอนไม่ได้กด           |
+| `--toggle-hover-bg`       | `--muted`            | –      | พื้นตอน hover                     |
+| `--toggle-hover-fg`       | `--foreground`       | –      | ตัวอักษรตอน hover                 |
+| `--toggle-pressed-bg`     | `--muted`            | –      | พื้นตอนกดอยู่ / เลือกอยู่              |
+| `--toggle-pressed-fg`     | `--foreground`       | –      | ตัวอักษรตอนกดอยู่ / เลือกอยู่          |
+| `--toggle-pressed-border` | `--control-border`   | –      | ขอบตอนกดอยู่ (contrast 3:1)       |
+| `--toggle-outline-border` | `--border`           | –      | ขอบ variant `outline` ตอนไม่ได้กด |
+
+### ButtonGroup
+
+| Token                      | โหมดสว่าง       | โหมดมืด | ใช้กับ                     |
+| -------------------------- | -------------- | ------ | ------------------------ |
+| `--button-group-text-bg`   | `--muted`      | –      | พื้น `ButtonGroupText`     |
+| `--button-group-text-fg`   | `--foreground` | –      | ตัวอักษร `ButtonGroupText` |
+| `--button-group-separator` | `--input`      | –      | เส้นคั่นระหว่างปุ่ม            |
+
+### Kbd
+
+| Token              | โหมดสว่าง             | โหมดมืด             | ใช้กับ                     |
+| ------------------ | -------------------- | ------------------ | ------------------------ |
+| `--kbd-bg`         | `--muted`            | –                  | พื้นปุ่มคีย์บอร์ด               |
+| `--kbd-fg`         | `--muted-foreground` | –                  | ตัวอักษรปุ่มคีย์บอร์ด           |
+| `--kbd-tooltip-bg` | `--tooltip-fg` 20%   | `--tooltip-fg` 12% | พื้นปุ่มคีย์บอร์ดใน Tooltip     |
+| `--kbd-tooltip-fg` | `--tooltip-fg`       | –                  | ตัวอักษรปุ่มคีย์บอร์ดใน Tooltip |
+
+### Slider
+
+| Token                   | โหมดสว่าง           | โหมดมืด | ใช้กับ                  |
+| ----------------------- | ------------------ | ------ | --------------------- |
+| `--slider-track`        | `--muted`          | –      | ราง                   |
+| `--slider-track-border` | `--control-border` | –      | ขอบราง (contrast 3:1) |
+| `--slider-range`        | `--primary`        | –      | ช่วงที่เลือก              |
+| `--slider-thumb-bg`     | `--background`     | –      | พื้นปุ่มเลื่อน              |
+| `--slider-thumb-border` | `--primary`        | –      | ขอบปุ่มเลื่อน             |
+
+### ScrollArea
+
+| Token                 | โหมดสว่าง           | โหมดมืด | ใช้กับ    |
+| --------------------- | ------------------ | ------ | ------- |
+| `--scroll-area-thumb` | `--control-border` | –      | แถบเลื่อน |
+
 <!-- /generated:component -->
 
 ตารางในหน้านี้สร้างจาก `theme.css` ด้วย `pnpm tokens:docs` อย่าแก้ในตารางโดยตรง

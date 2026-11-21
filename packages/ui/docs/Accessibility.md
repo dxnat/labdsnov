@@ -102,6 +102,19 @@
 | วันที่เลือกใน Calendar             | `--calendar-day-selected-fg` | `--calendar-day-selected-bg`      | 4.5:1 | 4.93  | 6.46  |
 | วันกลางช่วงใน Calendar           | `--foreground`               | `--calendar-range-bg`             | 4.5:1 | 17.76 | 13.79 |
 | ชื่อวันใน Calendar                | `--calendar-label-fg`        | `--popover`                       | 4.5:1 | 5.97  | 7.30  |
+| Toggle ที่ไม่ได้กด                 | `--toggle-fg`                | `--background`                    | 4.5:1 | 5.97  | 8.43  |
+| Toggle ตอน hover               | `--toggle-hover-fg`          | `--toggle-hover-bg`               | 4.5:1 | 17.76 | 13.79 |
+| Toggle ที่กดอยู่                   | `--toggle-pressed-fg`        | `--toggle-pressed-bg`             | 4.5:1 | 17.76 | 13.79 |
+| ขอบ Toggle ที่กดอยู่               | `--toggle-pressed-border`    | `--background`                    | 3:1   | 3.93  | 4.05  |
+| ข้อความใน ButtonGroup           | `--button-group-text-fg`     | `--button-group-text-bg`          | 4.5:1 | 17.76 | 13.79 |
+| Kbd                            | `--kbd-fg`                   | `--kbd-bg`                        | 4.5:1 | 5.41  | 6.14  |
+| Kbd ในกล่องลอย                  | `--kbd-fg`                   | `--kbd-bg`                        | 4.5:1 | 5.41  | 6.14  |
+| Kbd ใน Tooltip                 | `--kbd-tooltip-fg`           | `--kbd-tooltip-bg`                | 4.5:1 | 10.96 | 14.60 |
+| ช่วงที่เลือกของ Slider บนราง       | `--slider-range`             | `--slider-track`                  | 3:1   | 4.74  | 5.09  |
+| ขอบราง Slider                  | `--slider-track-border`      | `--background`                    | 3:1   | 3.93  | 4.05  |
+| ขอบปุ่มเลื่อน Slider               | `--slider-thumb-border`      | `--background`                    | 3:1   | 5.23  | 6.99  |
+| ปุ่มเลื่อน Slider บนช่วงที่เลือก       | `--slider-thumb-bg`          | `--slider-range`                  | 3:1   | 5.23  | 6.99  |
+| แถบเลื่อนของ ScrollArea          | `--scroll-area-thumb`        | `--background`                    | 3:1   | 3.93  | 4.05  |
 | สีกราฟชุดที่ 1                     | `--chart-1`                  | `--background`                    | 3:1   | 5.23  | 6.99  |
 | สีกราฟชุดที่ 1 ใน Card             | `--chart-1`                  | `--card`                          | 3:1   | 5.23  | 6.05  |
 | สีกราฟชุดที่ 2                     | `--chart-2`                  | `--background`                    | 3:1   | 5.15  | 8.29  |

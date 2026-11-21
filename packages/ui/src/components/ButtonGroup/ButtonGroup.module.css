@@ -1,0 +1,56 @@
+/*
+ * ButtonGroup styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * Children are matched by `data-slot` (which CSS Modules don't rename): every
+ * part of the bar loses its inner corners and shares the border with its
+ * neighbour. These selectors outrank a child's own `.root` rule.
+ */
+@reference "../../styles/reference.css";
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply flex w-fit items-stretch;
+    @apply has-[>[data-slot=button-group]]:gap-2;
+    @apply [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1;
+  }
+
+  /* A focused part sits above its neighbours so its ring isn't covered. */
+  .root > :focus-visible,
+  .root > :focus-within {
+    @apply relative z-10;
+  }
+
+  /* ---------- Horizontal ---------- */
+  .horizontal > [data-slot]:has(~ [data-slot]) {
+    @apply rounded-r-none;
+  }
+
+  .horizontal > [data-slot] ~ [data-slot] {
+    @apply rounded-l-none border-l-0;
+  }
+
+  /* ---------- Vertical ---------- */
+  .vertical {
+    @apply flex-col;
+  }
+
+  .vertical > [data-slot]:has(~ [data-slot]) {
+    @apply rounded-b-none;
+  }
+
+  .vertical > [data-slot] ~ [data-slot] {
+    @apply rounded-t-none border-t-0;
+  }
+
+  /* ---------- Parts ---------- */
+  .text {
+    @apply flex items-center gap-2 rounded-4xl border border-border bg-(--button-group-text-bg) px-2.5 text-sm font-medium text-(--button-group-text-fg);
+    @apply [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .separator {
+    @apply relative self-stretch bg-(--button-group-separator);
+    @apply data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto;
+  }
+}

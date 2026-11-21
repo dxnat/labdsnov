@@ -1,0 +1,14 @@
+/*
+ * Collapsible styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * shadcn leaves it unstyled; the height animation matches Accordion's panel.
+ */
+@reference "../../styles/reference.css";
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .content {
+    @apply h-(--collapsible-panel-height) overflow-hidden transition-[height] duration-200 ease-out;
+    @apply data-ending-style:h-0 data-starting-style:h-0;
+  }
+}

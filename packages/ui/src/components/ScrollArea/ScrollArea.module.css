@@ -1,0 +1,34 @@
+/*
+ * ScrollArea styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ */
+@reference "../../styles/reference.css";
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply relative overflow-hidden;
+  }
+
+  /* Keyboard users focus the viewport and scroll with the arrow keys. */
+  .viewport {
+    @apply size-full rounded-[inherit] transition-[color,box-shadow] outline-none;
+    @apply focus-visible:ring-2 focus-visible:ring-(--focus-ring) focus-visible:ring-inset;
+  }
+
+  .scrollbar {
+    @apply flex touch-none p-px transition-colors select-none;
+  }
+
+  .scrollbarVertical {
+    @apply h-full w-2.5 border-l border-l-transparent;
+  }
+
+  .scrollbarHorizontal {
+    @apply h-2.5 flex-col border-t border-t-transparent;
+  }
+
+  .thumb {
+    @apply relative flex-1 rounded-full bg-(--scroll-area-thumb);
+  }
+}

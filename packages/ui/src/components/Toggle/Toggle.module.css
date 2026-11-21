@@ -1,0 +1,47 @@
+/*
+ * Toggle styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * Also used by ToggleGroupItem through `toggleVariants()`.
+ */
+@reference "../../styles/reference.css";
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  /* ---------- Base ---------- */
+  .root {
+    @apply inline-flex items-center justify-center gap-1 rounded-3xl border border-transparent text-sm font-medium whitespace-nowrap text-(--toggle-fg) transition-colors outline-none;
+    @apply hover:bg-(--toggle-hover-bg) hover:text-(--toggle-hover-fg);
+    @apply [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  /* ---------- Variants ---------- */
+  .variantDefault {
+    @apply bg-transparent;
+  }
+
+  .variantOutline {
+    @apply border-(--toggle-outline-border) bg-transparent;
+  }
+
+  /* ---------- Sizes ---------- */
+  .sizeDefault {
+    @apply h-9 min-w-9 px-3 has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5;
+  }
+
+  .sizeSm {
+    @apply h-8 min-w-8 px-3 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
+  }
+
+  .sizeLg {
+    @apply h-10 min-w-10 px-4 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3;
+  }
+
+  /* ---------- States (after variants so they take precedence) ---------- */
+  /* Pressed: tinted fill plus a 3:1 border, so the state doesn't rest on a faint fill. */
+  .root {
+    @apply data-pressed:border-(--toggle-pressed-border) data-pressed:bg-(--toggle-pressed-bg) data-pressed:text-(--toggle-pressed-fg);
+    @apply focus-visible:border-(--focus-ring) focus-visible:ring-2 focus-visible:ring-(--focus-ring);
+    @apply disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50;
+    @apply aria-invalid:border-(--invalid-border) aria-invalid:ring-3 aria-invalid:ring-(--invalid-ring) aria-invalid:focus-visible:ring-2 aria-invalid:focus-visible:ring-(--invalid-border);
+  }
+}

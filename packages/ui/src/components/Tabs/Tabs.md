@@ -111,14 +111,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "labdsnov"
 
 token เฉพาะของคอมโพเนนต์นี้ ชี้ไปที่ semantic token ด้านล่าง เปลี่ยนที่นี่เพื่อปรับเฉพาะคอมโพเนนต์นี้ (โหมดมืด "–" = ใช้ค่าเดียวกับโหมดสว่าง)
 
-| Token                      | โหมดสว่าง             | โหมดมืด    | ใช้ใน                            |
-| -------------------------- | -------------------- | --------- | ------------------------------- |
-| `--tabs-trigger-fg`        | `--muted-foreground` | –         | ตัวอักษรแท็บที่ไม่ได้เลือก              |
-| `--tabs-list-bg`           | `--muted`            | –         | พื้นแคปซูล (`default`)             |
-| `--tabs-trigger-active-fg` | `--foreground`       | –         | ตัวอักษรแท็บที่เลือก และตอน hover     |
-| `--tabs-trigger-active-bg` | `--background`       | `--input` | พื้นแท็บที่เลือก (`default`)          |
-| `--tabs-indicator`         | `--foreground`       | –         | เส้นใต้แท็บที่เลือก (`line`)          |
-| `--focus-ring`             | `--ring`             | –         | วงแหวน focus จากคีย์บอร์ด (ทึบ 2px) |
+| Token                      | โหมดสว่าง             | โหมดมืด    | ใช้ใน                                          |
+| -------------------------- | -------------------- | --------- | --------------------------------------------- |
+| `--tabs-trigger-fg`        | `--muted-foreground` | –         | ตัวอักษรแท็บที่ไม่ได้เลือก                            |
+| `--tabs-list-bg`           | `--muted`            | –         | พื้นแคปซูล (`default`)                           |
+| `--tabs-trigger-active-fg` | `--foreground`       | –         | ตัวอักษรแท็บที่เลือก และตอน hover                   |
+| `--tabs-trigger-active-bg` | `--background`       | `--input` | พื้นแท็บที่เลือก (`default`)                        |
+| `--tabs-indicator`         | `--foreground`       | –         | เส้นใต้แท็บที่เลือก (`line`)                        |
+| `--focus-ring`             | `--ring`             | –         | วงแหวน focus จากคีย์บอร์ดของทุกคอมโพเนนต์ (ทึบ 2px) |
 
 ### Semantic tokens
 

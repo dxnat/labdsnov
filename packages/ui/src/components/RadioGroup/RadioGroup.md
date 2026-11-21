@@ -86,9 +86,9 @@ token เฉพาะของคอมโพเนนต์นี้ ชี้�
 | `--control-bg`         | `--background`         | `--input` 50%       | พื้นตอนยังไม่เลือก                                   |
 | `--control-checked-bg` | `--primary`            | –                   | พื้นและเส้นขอบตอนเลือก                              |
 | `--control-checked-fg` | `--primary-foreground` | –                   | เครื่องหมายถูก / จุด ตอนเลือก                        |
-| `--focus-ring`         | `--ring`               | –                   | วงแหวน focus จากคีย์บอร์ด (ทึบ 2px)                 |
+| `--focus-ring`         | `--ring`               | –                   | วงแหวน focus จากคีย์บอร์ดของทุกคอมโพเนนต์ (ทึบ 2px)   |
 | `--invalid-border`     | `--destructive`        | –                   | เส้นขอบเมื่อข้อมูลไม่ถูกต้อง และวงแหวน focus ขณะไม่ถูกต้อง |
-| `--invalid-ring`       | `--destructive` 20%    | `--destructive` 40% | วงแหวนจางรอบช่องที่ไม่ถูกต้อง                         |
+| `--invalid-ring`       | `--destructive` 20%    | `--destructive` 40% | วงแหวนจางรอบช่องที่ไม่ถูกต้อง (ตกแต่ง)                 |
 
 ### Semantic tokens
 

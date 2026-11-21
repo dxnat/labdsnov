@@ -64,12 +64,12 @@ token เฉพาะของคอมโพเนนต์นี้ ชี้�
 | Token                    | โหมดสว่าง               | โหมดมืด              | ใช้ใน                                            |
 | ------------------------ | ---------------------- | ------------------- | ----------------------------------------------- |
 | `--control-checked-bg`   | `--primary`            | –                   | พื้นและเส้นขอบตอนเลือก                              |
-| `--switch-track`         | `--control-border`     | –                   | ราง ตอนปิด                                       |
-| `--switch-thumb`         | `--background`         | `--foreground`      | ปุ่มเลื่อน ตอนปิด                                    |
-| `--switch-thumb-checked` | `--primary-foreground` | –                   | ปุ่มเลื่อน ตอนเปิด                                   |
-| `--focus-ring`           | `--ring`               | –                   | วงแหวน focus จากคีย์บอร์ด (ทึบ 2px)                 |
+| `--switch-track`         | `--control-border`     | –                   | ราง Switch ตอนปิด                                |
+| `--switch-thumb`         | `--background`         | `--foreground`      | ปุ่มเลื่อน Switch ตอนปิด                             |
+| `--switch-thumb-checked` | `--primary-foreground` | –                   | ปุ่มเลื่อน Switch ตอนเปิด                            |
+| `--focus-ring`           | `--ring`               | –                   | วงแหวน focus จากคีย์บอร์ดของทุกคอมโพเนนต์ (ทึบ 2px)   |
 | `--invalid-border`       | `--destructive`        | –                   | เส้นขอบเมื่อข้อมูลไม่ถูกต้อง และวงแหวน focus ขณะไม่ถูกต้อง |
-| `--invalid-ring`         | `--destructive` 20%    | `--destructive` 40% | วงแหวนจางรอบช่องที่ไม่ถูกต้อง                         |
+| `--invalid-ring`         | `--destructive` 20%    | `--destructive` 40% | วงแหวนจางรอบช่องที่ไม่ถูกต้อง (ตกแต่ง)                 |
 
 ### Semantic tokens
 

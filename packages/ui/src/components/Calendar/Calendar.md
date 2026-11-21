@@ -69,14 +69,14 @@ const [date, setDate] = useState<Date>()
 
 token เฉพาะของคอมโพเนนต์นี้ ชี้ไปที่ semantic token ด้านล่าง เปลี่ยนที่นี่เพื่อปรับเฉพาะคอมโพเนนต์นี้ (โหมดมืด "–" = ใช้ค่าเดียวกับโหมดสว่าง)
 
-| Token                        | โหมดสว่าง               | โหมดมืด | ใช้ใน                            |
-| ---------------------------- | ---------------------- | ------ | ------------------------------- |
-| `--calendar-label-fg`        | `--muted-foreground`   | –      | ชื่อวันในสัปดาห์, เลขสัปดาห์           |
-| `--calendar-range-bg`        | `--muted`              | –      | พื้นวันกลางช่วง                     |
-| `--calendar-today-bg`        | `--muted`              | –      | พื้นวันนี้                           |
-| `--calendar-day-selected-bg` | `--primary`            | –      | พื้นวันที่เลือก (และต้น/ปลายช่วง)       |
-| `--calendar-day-selected-fg` | `--primary-foreground` | –      | ตัวอักษรวันที่เลือก                   |
-| `--focus-ring`               | `--ring`               | –      | วงแหวน focus จากคีย์บอร์ด (ทึบ 2px) |
+| Token                        | โหมดสว่าง               | โหมดมืด | ใช้ใน                                          |
+| ---------------------------- | ---------------------- | ------ | --------------------------------------------- |
+| `--calendar-label-fg`        | `--muted-foreground`   | –      | ชื่อวันในสัปดาห์, เลขสัปดาห์                         |
+| `--calendar-range-bg`        | `--muted`              | –      | พื้นวันกลางช่วง                                   |
+| `--calendar-today-bg`        | `--muted`              | –      | พื้นวันนี้                                         |
+| `--calendar-day-selected-bg` | `--primary`            | –      | พื้นวันที่เลือก (และต้น/ปลายช่วง)                     |
+| `--calendar-day-selected-fg` | `--primary-foreground` | –      | ตัวอักษรวันที่เลือก                                 |
+| `--focus-ring`               | `--ring`               | –      | วงแหวน focus จากคีย์บอร์ดของทุกคอมโพเนนต์ (ทึบ 2px) |
 
 ### Semantic tokens
 

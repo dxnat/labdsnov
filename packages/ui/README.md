@@ -2,7 +2,7 @@
 
 The DSADV design system: Thai-first shadcn/ui components built on [Base UI](https://base-ui.com) and styled with Tailwind CSS v4 CSS modules. It's the library version of the components in the DSADV member-portal app.
 
-38 components, from `Accordion` to `Tooltip`. Every one has a Thai usage doc beside it (`src/components/<Name>/<Name>.md`): when to use it, when not to, props, variants and tokens.
+46 components, from `Accordion` to `Tooltip`. Every one has a Thai usage doc beside it (`src/components/<Name>/<Name>.md`): when to use it, when not to, props, variants and tokens.
 
 ## Docs
 
