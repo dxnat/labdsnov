@@ -17,7 +17,8 @@ Every component has a usage doc beside it: `packages/ui/src/components/<Name>/<N
 - **Before using or changing a component, read its `<Name>.md`.** It says when to use it, when not to and what to use instead, which props, variants and sizes exist, the content rules (labels, button order, Thai copy) and which tokens it uses. Follow it when you build UI with the library, e.g. in stories or in the DSADV app.
 - Items marked `TODO` are open design decisions. Don't fill them in by guessing: ask, or leave the TODO in place.
 - **Keep the doc in sync.** When you add, rename or remove a prop, variant, size or token use, or change behaviour, update the matching `<Name>.md` in the same change.
-- **New components need one.** Follow the existing docs' sections: Purpose (one line), When to use, When not to use, Props and variants (only ones that exist), Tokens used, and one example taken from the stories. Leave out implementation details (exports, data attributes, CSS utilities), and mark anything unsure as `TODO`.
+- **Storybook shows them.** Each story file imports its doc (`import guidelines from "./<Name>.md?raw"`) and passes it through `usageDoc()` (`src/storybook/usageDoc.ts`, which drops the `# Title` line and unlinks relative `.md` links) into `parameters.docs.description.component`, so the doc appears at the top of the component's Docs page. `src/storybook/` is Storybook-only and excluded from `tsconfig.build.json`.
+- **New components need one.** Follow the existing docs' sections: Purpose (one line), Import and usage (the shared one-time app setup plus an import and a minimal snippet), When to use, When not to use, Props and variants (only ones that exist), Tokens used, and one example taken from the stories. Leave out implementation details (exports, data attributes, CSS utilities), and mark anything unsure as `TODO`.
 
 ## Commands
 

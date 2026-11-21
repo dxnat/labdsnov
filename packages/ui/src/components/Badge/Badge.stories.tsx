@@ -8,7 +8,10 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { expect } from "storybook/test"
 
+import { usageDoc } from "../../storybook/usageDoc"
+
 import { Badge, type BadgeVariant } from "./Badge"
+import guidelines from "./Badge.md?raw"
 
 // `satisfies Record<…>` makes typecheck fail if a variant is added to or
 // removed from Badge without updating these stories.
@@ -27,6 +30,8 @@ const meta = {
   title: "Components/Badge",
   component: Badge,
   tags: ["autodocs"],
+  // Usage guidelines from the doc beside the component, shown on the Docs page.
+  parameters: { docs: { description: { component: usageDoc(guidelines) } } },
   args: {
     children: "สำเร็จ",
     variant: "default",

@@ -4,6 +4,35 @@
 
 ปุ่มให้ผู้ใช้สั่งการกระทำในหน้า เช่น ส่งฟอร์ม บันทึก หรือเปิด dialog
 
+## Import and usage
+
+**ตั้งค่าครั้งเดียวในแอป** (ใช้ร่วมกันทุกคอมโพเนนต์):
+
+1. ติดตั้ง `labdsnov` พร้อม `react`, `react-dom` และ `next` (ต้องเป็นแอป Next.js) TODO: ยังไม่ได้เผยแพร่บน npm ตอนนี้ใช้ได้เฉพาะใน monorepo นี้ (`"labdsnov": "workspace:*"`)
+2. import สไตล์ครั้งเดียวที่ root layout: `import "labdsnov/styles.css"`
+3. กำหนดตัวแปร `--font-heading` (แอปใช้ IBM Plex Sans Thai) และใส่ class `dark` ที่ `<html>` เมื่อต้องการโหมดมืด
+
+```tsx
+import { Button, buttonVariants } from "labdsnov"
+
+<Button type="submit">บันทึก</Button>
+<Button variant="outline" onClick={onCancel}>ยกเลิก</Button>
+
+// ปุ่มไอคอนอย่างเดียว ต้องมี aria-label
+<Button size="icon" variant="ghost" aria-label="ตั้งค่า">
+  <HugeiconsIcon icon={Settings01Icon} strokeWidth={2} />
+</Button>
+
+// ลิงก์ไปหน้าอื่นที่หน้าตาเหมือนปุ่ม
+import Link from "next/link"
+
+<Link href="/register" className={buttonVariants({ variant: "outline" })}>
+  สมัครสมาชิก
+</Link>
+```
+
+ถ้าใช้ไอคอน ให้ติดตั้ง `@hugeicons/react` และ `@hugeicons/core-free-icons` ในแอปด้วย
+
 ## When to use
 
 - การกระทำที่เกิดขึ้นในหน้าเดิม เช่น "บันทึก", "เพิ่มเงินสมทบ", "ลบ"

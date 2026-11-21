@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { expect } from "storybook/test"
 
+import { usageDoc } from "../../storybook/usageDoc"
+
 import { FundCard, type FundCardProps } from "./FundCard"
+import guidelines from "./FundCard.md?raw"
 
 // Mock data from the app's component page. Images are served from
 // apps/storybook/public/funds (Storybook `staticDirs`).
@@ -41,6 +44,8 @@ const meta = {
   title: "Components/FundCard",
   component: FundCard,
   tags: ["autodocs"],
+  // Usage guidelines from the doc beside the component, shown on the Docs page.
+  parameters: { docs: { description: { component: usageDoc(guidelines) } } },
   args: fundOptions[1],
   argTypes: {
     name: { control: "text" },

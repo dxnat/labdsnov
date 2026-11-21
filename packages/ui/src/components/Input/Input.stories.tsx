@@ -1,8 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { expect, fireEvent, fn } from "storybook/test"
 
+import { usageDoc } from "../../storybook/usageDoc"
+
 import { Label } from "../Label"
 import { Input, type InputVariant } from "./Input"
+import guidelines from "./Input.md?raw"
 
 // `satisfies Record<…>` makes typecheck fail if a variant is added to or
 // removed from Input without updating these stories.
@@ -17,6 +20,8 @@ const meta = {
   title: "Components/Input",
   component: Input,
   tags: ["autodocs"],
+  // Usage guidelines from the doc beside the component, shown on the Docs page.
+  parameters: { docs: { description: { component: usageDoc(guidelines) } } },
   args: {
     variant: "filled",
     type: "text",

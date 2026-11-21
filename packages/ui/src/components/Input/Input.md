@@ -4,6 +4,25 @@
 
 ช่องกรอกข้อความบรรทัดเดียว เช่น ชื่อ อีเมล รหัสผ่าน เบอร์โทรศัพท์ หรือเลือกไฟล์
 
+## Import and usage
+
+**ตั้งค่าครั้งเดียวในแอป** (ใช้ร่วมกันทุกคอมโพเนนต์):
+
+1. ติดตั้ง `labdsnov` พร้อม `react`, `react-dom` และ `next` (ต้องเป็นแอป Next.js) TODO: ยังไม่ได้เผยแพร่บน npm ตอนนี้ใช้ได้เฉพาะใน monorepo นี้ (`"labdsnov": "workspace:*"`)
+2. import สไตล์ครั้งเดียวที่ root layout: `import "labdsnov/styles.css"`
+3. กำหนดตัวแปร `--font-heading` (แอปใช้ IBM Plex Sans Thai) และใส่ class `dark` ที่ `<html>` เมื่อต้องการโหมดมืด
+
+```tsx
+import { Input, Label } from "labdsnov"
+
+;<div className="grid gap-2">
+  <Label htmlFor="email" required>
+    อีเมล
+  </Label>
+  <Input id="email" type="email" required placeholder="you@example.com" />
+</div>
+```
+
 ## When to use
 
 - ข้อมูลสั้นบรรทัดเดียวในฟอร์ม เช่น ฟอร์มแก้ไขข้อมูลบัญชี เข้าสู่ระบบ

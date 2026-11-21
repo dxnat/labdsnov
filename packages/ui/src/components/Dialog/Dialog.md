@@ -4,6 +4,56 @@
 
 หน้าต่างแบบ modal ที่ลอยทับหน้า ให้ผู้ใช้ตัดสินใจหรือกรอกข้อมูลสั้น ๆ ให้เสร็จก่อนกลับไปทำงานต่อ
 
+## Import and usage
+
+**ตั้งค่าครั้งเดียวในแอป** (ใช้ร่วมกันทุกคอมโพเนนต์):
+
+1. ติดตั้ง `labdsnov` พร้อม `react`, `react-dom` และ `next` (ต้องเป็นแอป Next.js) TODO: ยังไม่ได้เผยแพร่บน npm ตอนนี้ใช้ได้เฉพาะใน monorepo นี้ (`"labdsnov": "workspace:*"`)
+2. import สไตล์ครั้งเดียวที่ root layout: `import "labdsnov/styles.css"`
+3. กำหนดตัวแปร `--font-heading` (แอปใช้ IBM Plex Sans Thai) และใส่ class `dark` ที่ `<html>` เมื่อต้องการโหมดมืด
+
+```tsx
+import {
+  Button,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "labdsnov"
+
+;<Dialog>
+  <DialogTrigger render={<Button variant="outline" />}>
+    เปลี่ยนแผนการลงทุน
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>เปลี่ยนแผนการลงทุน</DialogTitle>
+      <DialogDescription>การเปลี่ยนแผนจะมีผลกับเงินสมทบงวดถัดไป</DialogDescription>
+    </DialogHeader>
+    <DialogFooter>
+      <DialogClose render={<Button variant="outline" />}>ยกเลิก</DialogClose>
+      <DialogClose render={<Button />}>เปลี่ยนแผน</DialogClose>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+ควบคุมการเปิด/ปิดเอง (เช่น ปิดหลังบันทึกสำเร็จ) ใช้ `open` กับ `onOpenChange` ในไฟล์ที่มี `"use client"`:
+
+```tsx
+"use client"
+
+import { useState } from "react"
+
+const [open, setOpen] = useState(false)
+
+<Dialog open={open} onOpenChange={setOpen}>…</Dialog>
+```
+
 ## When to use
 
 - ยืนยันการตัดสินใจสำคัญที่ผู้ใช้เริ่มเอง เช่น เปลี่ยนแผนการลงทุน

@@ -1,13 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { expect } from "storybook/test"
 
+import { usageDoc } from "../../storybook/usageDoc"
+
 import { Input } from "../Input"
 import { Label } from "./Label"
+import guidelines from "./Label.md?raw"
 
 const meta = {
   title: "Components/Label",
   component: Label,
   tags: ["autodocs"],
+  // Usage guidelines from the doc beside the component, shown on the Docs page.
+  parameters: { docs: { description: { component: usageDoc(guidelines) } } },
   args: {
     children: "อีเมล",
     required: false,
