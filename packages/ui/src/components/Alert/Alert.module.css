@@ -1,0 +1,49 @@
+/*
+ * Alert styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * shadcn's `group-has-[>svg]/alert:` becomes `.root:has(> svg) .title`.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply relative grid w-full gap-0.5 rounded-2xl border px-4 py-3 text-left text-sm;
+    @apply has-data-[slot=alert-action]:pr-18;
+    @apply has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5;
+    @apply *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4;
+  }
+
+  /* ---------- Variants ---------- */
+  .variantDefault {
+    @apply bg-card text-card-foreground;
+  }
+
+  .variantDestructive {
+    @apply bg-card text-destructive;
+  }
+
+  /* ---------- Parts ---------- */
+  .title {
+    @apply font-medium [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground;
+  }
+
+  .root:has(> svg) .title,
+  .root:has(> svg) .description {
+    @apply col-start-2;
+  }
+
+  .description {
+    @apply text-sm text-balance text-muted-foreground md:text-pretty;
+    @apply [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4;
+  }
+
+  .variantDestructive .description {
+    @apply text-destructive/90;
+  }
+
+  .action {
+    @apply absolute top-2.5 right-3;
+  }
+}

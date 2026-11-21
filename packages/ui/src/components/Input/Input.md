@@ -31,8 +31,9 @@ import { Input, Label } from "labdsnov"
 
 ## When not to use
 
-- **ข้อความหลายบรรทัด**: TODO: ยังไม่มีคอมโพเนนต์ textarea
-- **เลือกจากรายการ เปิด/ปิด หรือเลือกวันที่**: TODO: ยังไม่มีคอมโพเนนต์ select, checkbox, switch, date picker
+- **ข้อความหลายบรรทัด**: ใช้ `Textarea`
+- **เลือกจากรายการ หรือเปิด/ปิด**: ใช้ `Select`, `RadioGroup`, `Checkbox` หรือ `Switch`
+- **เลือกวันที่**: TODO: ยังไม่มีคอมโพเนนต์ date picker
 - **ใช้ placeholder แทนป้ายชื่อ**: placeholder หายไปเมื่อเริ่มพิมพ์ ใช้แค่ยกตัวอย่างรูปแบบ เช่น "04xx xxx xxx"
 
 ## Props and variants
@@ -63,7 +64,7 @@ import { Input, Label } from "labdsnov"
 
 - **Focus จากคีย์บอร์ด**: เส้นขอบและวงแหวนสี ring
 - **ปิดใช้งาน**: จางลง 50%
-- **ข้อมูลไม่ถูกต้อง** (`aria-invalid`): เส้นขอบและวงแหวนสีแดง ต้องมีข้อความบอกว่าผิดอย่างไรใต้ช่องเสมอ TODO: ยังไม่มีคอมโพเนนต์ข้อความช่วยเหลือ/ข้อความผิดพลาด story ใช้ข้อความ 12px สีแดง
+- **ข้อมูลไม่ถูกต้อง** (`aria-invalid`): เส้นขอบและวงแหวนสีแดง ต้องมีข้อความบอกว่าผิดอย่างไรใต้ช่องเสมอ ใช้ `FieldError` (ดู [Field](../Field/Field.md))
 
 ## Tokens used
 

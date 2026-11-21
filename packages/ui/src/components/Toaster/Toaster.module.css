@@ -1,0 +1,22 @@
+/*
+ * Toaster styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Sonner styles the toasts itself; colours come from the tokens passed as CSS
+ * variables in Toaster.tsx (--normal-bg, --normal-text, --normal-border).
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .toaster {
+    @apply font-sans;
+  }
+
+  .icon {
+    @apply size-4;
+  }
+
+  .spinner {
+    @apply size-4 animate-spin;
+  }
+}

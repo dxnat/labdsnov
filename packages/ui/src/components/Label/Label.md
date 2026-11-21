@@ -34,7 +34,7 @@ import { Input, Label } from "labdsnov"
 ## When not to use
 
 - **หัวข้อของส่วนหรือของหน้า**: ใช้หัวข้อ (heading) แทน
-- **ข้อความช่วยเหลือหรือข้อความผิดพลาดใต้ช่อง**: ใช้ข้อความธรรมดาผูกด้วย `aria-describedby` (ดู [Input](../Input/Input.md))
+- **ข้อความช่วยเหลือหรือข้อความผิดพลาดใต้ช่อง**: ใช้ `FieldDescription` / `FieldError` ผูกด้วย `aria-describedby` (ดู [Field](../Field/Field.md)) ในฟอร์มใช้ `FieldLabel` แทน Label ได้
 - **ป้ายที่ไม่ได้ผูกกับช่องใด**: ถ้าไม่มี `htmlFor` ป้ายจะไม่ทำหน้าที่ใด ๆ
 
 ## Props and variants

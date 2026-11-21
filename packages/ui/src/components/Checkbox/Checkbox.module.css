@@ -1,0 +1,44 @@
+/*
+ * Checkbox styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  /* ---------- Box ---------- */
+  .root {
+    @apply relative flex size-4 shrink-0 items-center justify-center rounded-[5px] border border-transparent bg-input/90 transition-shadow outline-none;
+    /* Larger hit area than the 16px box. */
+    @apply after:absolute after:-inset-x-3 after:-inset-y-2;
+    @apply data-checked:border-primary data-checked:bg-primary data-checked:text-primary-foreground;
+    @apply data-indeterminate:border-primary data-indeterminate:bg-primary data-indeterminate:text-primary-foreground;
+  }
+
+  /* ---------- Indicator: tick when checked, dash when indeterminate ---------- */
+  .indicator {
+    @apply grid place-content-center text-current transition-none;
+  }
+
+  .check,
+  .dash {
+    @apply size-3.5;
+  }
+
+  .indicator[data-indeterminate] .check,
+  .indicator:not([data-indeterminate]) .dash {
+    @apply hidden;
+  }
+
+  /* ---------- States (after the base rules so they take precedence) ---------- */
+  .root {
+    @apply focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30;
+    @apply data-disabled:cursor-not-allowed data-disabled:opacity-50;
+    @apply aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 aria-invalid:data-checked:border-primary;
+  }
+
+  :global(.dark) .root {
+    @apply aria-invalid:border-destructive/50 aria-invalid:ring-destructive/40;
+  }
+}

@@ -1,0 +1,102 @@
+/*
+ * Select styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * The popup reuses the Dialog/Popover surface (popover tokens, soft ring).
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  /* ---------- Trigger (looks like Input `filled`) ---------- */
+  .trigger {
+    @apply flex w-fit items-center justify-between gap-1.5 rounded-3xl border border-transparent bg-input/50 px-3 py-2 text-sm whitespace-nowrap transition-[color,box-shadow,background-color] outline-none;
+    @apply data-placeholder:text-muted-foreground;
+    @apply [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .triggerDefault {
+    @apply h-9;
+  }
+
+  .triggerSm {
+    @apply h-8;
+  }
+
+  .triggerIcon {
+    @apply pointer-events-none size-4 text-muted-foreground;
+  }
+
+  .value {
+    @apply line-clamp-1 flex flex-1 items-center gap-1.5 text-left;
+  }
+
+  /* ---------- Popup ---------- */
+  .positioner {
+    @apply isolate z-50;
+  }
+
+  .content {
+    @apply relative isolate z-50 max-h-(--available-height) w-(--anchor-width) min-w-36 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-3xl bg-popover text-popover-foreground shadow-lg ring-1 ring-foreground/5 duration-100;
+    @apply data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2;
+    @apply data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2;
+    @apply data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95;
+    /* When the list opens over the trigger, it appears without animation. */
+    @apply data-[align-trigger=true]:animate-none;
+  }
+
+  :global(.dark) .content {
+    @apply ring-foreground/10;
+  }
+
+  .group {
+    @apply scroll-my-1.5 p-1.5;
+  }
+
+  .label {
+    @apply px-3 py-2.5 text-xs text-muted-foreground;
+  }
+
+  /* ---------- Item ---------- */
+  .item {
+    @apply relative flex w-full cursor-default items-center gap-2.5 rounded-2xl py-2 pr-8 pl-3 text-sm font-medium outline-hidden select-none;
+    @apply focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground;
+    @apply data-disabled:pointer-events-none data-disabled:opacity-50;
+    @apply [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .itemText {
+    @apply flex flex-1 shrink-0 gap-2 whitespace-nowrap;
+  }
+
+  .itemIndicator {
+    @apply pointer-events-none absolute right-2 flex size-4 items-center justify-center;
+  }
+
+  .separator {
+    @apply pointer-events-none -mx-1.5 my-1.5 h-px bg-border;
+  }
+
+  .scrollButton {
+    @apply z-10 flex w-full cursor-default items-center justify-center bg-popover py-1 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .scrollUp {
+    @apply top-0;
+  }
+
+  .scrollDown {
+    @apply bottom-0;
+  }
+
+  /* ---------- States (after the base rules so they take precedence) ---------- */
+  .trigger {
+    @apply focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30;
+    @apply disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50;
+    @apply aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20;
+  }
+
+  :global(.dark) .trigger {
+    @apply aria-invalid:border-destructive/50 aria-invalid:ring-destructive/40;
+  }
+}

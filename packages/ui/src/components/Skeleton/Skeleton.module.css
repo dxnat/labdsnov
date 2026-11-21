@@ -1,0 +1,13 @@
+/*
+ * Skeleton styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply animate-pulse rounded-2xl bg-muted;
+  }
+}

@@ -1,0 +1,44 @@
+/*
+ * RadioGroup styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply grid w-full gap-3;
+  }
+
+  /* ---------- Item ---------- */
+  .item {
+    @apply relative flex aspect-square size-4 shrink-0 rounded-full border border-transparent bg-input/90 outline-none;
+    /* Larger hit area than the 16px circle. */
+    @apply after:absolute after:-inset-x-3 after:-inset-y-2;
+    @apply data-checked:bg-primary data-checked:text-primary-foreground;
+  }
+
+  .indicator {
+    @apply flex size-4 items-center justify-center;
+  }
+
+  .dot {
+    @apply absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-foreground;
+  }
+
+  :global(.dark) .dot {
+    @apply size-2.5;
+  }
+
+  /* ---------- States (after the base rules so they take precedence) ---------- */
+  .item {
+    @apply focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30;
+    @apply data-disabled:cursor-not-allowed data-disabled:opacity-50;
+    @apply aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20;
+  }
+
+  :global(.dark) .item {
+    @apply aria-invalid:border-destructive/50 aria-invalid:ring-destructive/40;
+  }
+}

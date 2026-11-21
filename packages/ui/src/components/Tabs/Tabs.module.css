@@ -1,0 +1,70 @@
+/*
+ * Tabs styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ *
+ * shadcn styles triggers through `group/tabs` and `group/tabs-list`. CSS Modules
+ * would rename `.group`, so instead: Base UI puts `data-orientation` on every
+ * part (so `data-horizontal:` / `data-vertical:` work on the element itself),
+ * and the `line` variant is a descendant rule (`.listLine .trigger`).
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  /* ---------- Root ---------- */
+  .root {
+    @apply flex gap-2 data-horizontal:flex-col;
+  }
+
+  /* ---------- List ---------- */
+  .list {
+    @apply inline-flex w-fit items-center justify-center rounded-full p-1 text-muted-foreground;
+    @apply data-horizontal:h-9 data-vertical:h-fit data-vertical:flex-col data-vertical:rounded-2xl;
+  }
+
+  .listDefault {
+    @apply bg-muted;
+  }
+
+  .listLine {
+    @apply gap-1 rounded-none bg-transparent;
+  }
+
+  /* ---------- Trigger ---------- */
+  .trigger {
+    @apply relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-2 rounded-full border border-transparent px-3 py-1 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all hover:text-foreground;
+    @apply data-vertical:w-full data-vertical:justify-start data-vertical:rounded-2xl data-vertical:py-1.5;
+    @apply has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
+    @apply [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4;
+    @apply data-active:bg-background data-active:text-foreground;
+    /* Underline for the `line` variant: drawn on every trigger, shown only when active. */
+    @apply after:absolute after:bg-foreground after:opacity-0 after:transition-opacity;
+    @apply data-horizontal:after:inset-x-0 data-horizontal:after:bottom-[-5px] data-horizontal:after:h-0.5;
+    @apply data-vertical:after:inset-y-0 data-vertical:after:-right-1 data-vertical:after:w-0.5;
+  }
+
+  :global(.dark) .trigger {
+    @apply text-muted-foreground hover:text-foreground data-active:bg-input/30 data-active:text-foreground;
+  }
+
+  /* ---------- Variant: line (after the base trigger rules) ---------- */
+  .listLine .trigger {
+    @apply bg-transparent data-active:bg-transparent data-active:after:opacity-100;
+  }
+
+  :global(.dark) .listLine .trigger {
+    @apply data-active:bg-transparent;
+  }
+
+  /* ---------- Panel ---------- */
+  .content {
+    @apply flex-1 text-sm outline-none;
+  }
+
+  /* ---------- States (after variants so they take precedence) ---------- */
+  .trigger {
+    @apply focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring;
+    @apply disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50;
+  }
+}

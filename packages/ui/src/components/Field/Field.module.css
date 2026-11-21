@@ -1,0 +1,139 @@
+/*
+ * Field styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ *
+ * shadcn uses `group/field` and `group/field-label` variants. CSS Modules would
+ * rename `.group`, so parent state is matched through `data-slot` attributes
+ * (not renamed): `:where([data-slot="field"][data-disabled="true"]) .label`.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  /* ---------- FieldSet / FieldLegend ---------- */
+  .set {
+    @apply flex flex-col gap-6;
+    @apply has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3;
+  }
+
+  .legend {
+    @apply mb-3 font-medium;
+  }
+
+  .legendLegend {
+    @apply text-base;
+  }
+
+  .legendLabel {
+    @apply text-sm;
+  }
+
+  /* ---------- FieldGroup ---------- */
+  .group {
+    @apply @container/field-group flex w-full flex-col gap-7;
+    @apply *:data-[slot=field-group]:gap-4;
+  }
+
+  /* ---------- Field ---------- */
+  .field {
+    @apply flex w-full gap-3 data-[invalid=true]:text-destructive;
+  }
+
+  .vertical {
+    @apply flex-col *:w-full [&>.sr-only]:w-auto;
+  }
+
+  .horizontal {
+    @apply flex-row items-center;
+    @apply has-[>[data-slot=field-content]]:items-start;
+    @apply *:data-[slot=field-label]:flex-auto;
+    @apply has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px;
+  }
+
+  .responsive {
+    @apply flex-col *:w-full [&>.sr-only]:w-auto;
+    @apply @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto;
+    @apply @md/field-group:has-[>[data-slot=field-content]]:items-start;
+    @apply @md/field-group:*:data-[slot=field-label]:flex-auto;
+    @apply @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px;
+  }
+
+  .content {
+    @apply flex flex-1 flex-col gap-1 leading-snug;
+  }
+
+  /* ---------- FieldLabel / FieldTitle ---------- */
+  .label {
+    @apply flex w-fit gap-2 leading-snug;
+  }
+
+  .title {
+    @apply flex w-fit items-center gap-2 text-sm font-medium;
+  }
+
+  :where([data-slot="field"][data-disabled="true"]) .label,
+  :where([data-slot="field"][data-disabled="true"]) .title {
+    @apply opacity-50;
+  }
+
+  /* Choice card: a FieldLabel that wraps a whole Field. */
+  .label {
+    @apply has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col has-[>[data-slot=field]]:rounded-2xl has-[>[data-slot=field]]:border;
+    @apply has-[>[data-slot=field]]:has-data-checked:bg-input/30;
+    @apply has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:bg-input/40;
+    @apply has-[>[data-slot=field]]:has-[:focus-visible]:border-ring has-[>[data-slot=field]]:has-[:focus-visible]:ring-3 has-[>[data-slot=field]]:has-[:focus-visible]:ring-ring/50;
+    @apply *:data-[slot=field]:p-4;
+  }
+
+  /* The card shows the focus ring, so the control inside it doesn't. */
+  .label:has(> [data-slot="field"]):has(:focus-visible)
+    :is(
+      [data-slot="checkbox"],
+      [data-slot="radio-group-item"],
+      [data-slot="switch"]
+    ) {
+    @apply ring-0;
+  }
+
+  .label:has(> [data-slot="field"]):has(:focus-visible)
+    :is([data-slot="checkbox"], [data-slot="radio-group-item"]):not(
+      [data-checked]
+    ) {
+    @apply border-transparent;
+  }
+
+  /* ---------- FieldDescription ---------- */
+  .description {
+    @apply text-left text-sm leading-normal font-normal text-muted-foreground;
+    @apply [[data-variant=legend]+&]:-mt-1.5;
+    @apply last:mt-0 nth-last-2:-mt-1;
+    @apply [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary;
+  }
+
+  :where([data-slot="field"][data-orientation="horizontal"]) .description {
+    @apply text-balance;
+  }
+
+  /* ---------- FieldSeparator ---------- */
+  .separator {
+    @apply relative -my-2 h-5 text-sm;
+  }
+
+  .separatorLine {
+    @apply absolute inset-0 top-1/2;
+  }
+
+  .separatorContent {
+    @apply relative mx-auto block w-fit bg-background px-2 text-muted-foreground;
+  }
+
+  /* ---------- FieldError ---------- */
+  .error {
+    @apply text-sm font-normal text-destructive;
+  }
+
+  .errorList {
+    @apply ml-4 flex list-disc flex-col gap-1;
+  }
+}

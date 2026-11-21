@@ -1,0 +1,56 @@
+/*
+ * Card styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * `--card-spacing` (set per size) drives the padding of every part.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply flex flex-col gap-(--card-spacing) overflow-hidden rounded-4xl bg-card py-(--card-spacing) text-sm text-card-foreground shadow-md ring-1 ring-foreground/5;
+    /* A leading image runs to the card's edges. */
+    @apply has-[>img:first-child]:pt-0 *:[img:first-child]:rounded-t-4xl *:[img:last-child]:rounded-b-4xl;
+  }
+
+  :global(.dark) .root {
+    @apply ring-foreground/10;
+  }
+
+  /* ---------- Sizes ---------- */
+  .sizeDefault {
+    @apply [--card-spacing:--spacing(6)];
+  }
+
+  .sizeSm {
+    @apply [--card-spacing:--spacing(4)];
+  }
+
+  /* ---------- Parts ---------- */
+  .header {
+    @apply grid auto-rows-min items-start gap-1.5 rounded-t-4xl px-(--card-spacing);
+    @apply has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto];
+    @apply [.border-b]:pb-(--card-spacing);
+  }
+
+  .title {
+    @apply font-heading text-base font-medium;
+  }
+
+  .description {
+    @apply text-sm text-muted-foreground;
+  }
+
+  .action {
+    @apply col-start-2 row-span-2 row-start-1 self-start justify-self-end;
+  }
+
+  .content {
+    @apply px-(--card-spacing);
+  }
+
+  .footer {
+    @apply flex items-center rounded-b-4xl px-(--card-spacing) [.border-t]:pt-(--card-spacing);
+  }
+}
