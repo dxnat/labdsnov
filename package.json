@@ -9,6 +9,8 @@
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx,css,md}\"",
     "pack:dry": "pnpm --filter labdsnov pack:dry",
+    "tokens:check": "pnpm --filter labdsnov tokens:check",
+    "tokens:docs": "pnpm --filter labdsnov tokens:docs",
     "storybook": "pnpm --filter @labdsnov/storybook storybook",
     "build-storybook": "pnpm --filter @labdsnov/storybook build-storybook"
   },

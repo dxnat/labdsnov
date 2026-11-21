@@ -1,0 +1,8 @@
+import { Markdown, Meta } from "@storybook/addon-docs/blocks"
+
+import { usageDoc } from "../src/storybook/usageDoc"
+import doc from "./Contributing.md?raw"
+
+<Meta title="Guides/Contributing" />
+
+<Markdown>{usageDoc(doc, { keepTitle: true })}</Markdown>

@@ -7,8 +7,8 @@ const uiSrc = fileURLToPath(new URL("../../../packages/ui/src/", import.meta.url
 
 const config: StorybookConfig = {
   framework: "@storybook/nextjs-vite",
-  // Stories sit next to each component in packages/ui.
-  stories: ["../../../packages/ui/src/**/*.stories.@(ts|tsx)"],
+  // Guides and Foundations pages first, then the stories next to each component.
+  stories: ["../../../packages/ui/docs/*.mdx", "../../../packages/ui/src/**/*.stories.@(ts|tsx)"],
   addons: ["@storybook/addon-docs", "@storybook/addon-themes"],
   // Fund images for FundCard stories (copied from the app's public/funds).
   staticDirs: ["../public"],

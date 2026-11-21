@@ -9,6 +9,23 @@ const preview: Preview = {
   parameters: {
     layout: "centered",
     controls: { expanded: true, sort: "requiredFirst" },
+    options: {
+      storySort: {
+        order: [
+          "Guides",
+          ["Getting started", "Contributing"],
+          "Foundations",
+          [
+            "Colors",
+            "Component tokens",
+            "Typography",
+            "Radius",
+            "Accessibility",
+          ],
+          "Components",
+        ],
+      },
+    },
   },
   decorators: [
     // Toggles the `.dark` class on <html>, like next-themes does in the app.

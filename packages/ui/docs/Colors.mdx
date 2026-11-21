@@ -1,0 +1,19 @@
+import { Markdown, Meta } from "@storybook/addon-docs/blocks"
+
+import { chartTokens, semanticTokens, TokenSwatches } from "../src/storybook/TokenSwatches"
+import { usageDoc } from "../src/storybook/usageDoc"
+import doc from "./Colors.md?raw"
+
+<Meta title="Foundations/Colors" />
+
+<Markdown>{usageDoc(doc, { keepTitle: true })}</Markdown>
+
+## Swatches
+
+ค่าจริงจาก `theme.css` ทั้งสองโหมด (ไม่ขึ้นกับโหมดที่เลือกใน toolbar)
+
+<TokenSwatches tokens={semanticTokens} />
+
+### Chart
+
+<TokenSwatches tokens={chartTokens} />

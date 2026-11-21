@@ -1,0 +1,8 @@
+import { Markdown, Meta } from "@storybook/addon-docs/blocks"
+
+import { usageDoc } from "../src/storybook/usageDoc"
+import doc from "./Accessibility.md?raw"
+
+<Meta title="Foundations/Accessibility" />
+
+<Markdown>{usageDoc(doc, { keepTitle: true })}</Markdown>

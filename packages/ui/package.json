@@ -21,7 +21,9 @@
   "scripts": {
     "build": "rm -rf dist && vite build && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
-    "pack:dry": "pnpm pack --dry-run"
+    "pack:dry": "pnpm pack --dry-run",
+    "tokens:check": "node scripts/tokens.mjs check",
+    "tokens:docs": "node scripts/tokens.mjs docs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
