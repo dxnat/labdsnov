@@ -25,7 +25,7 @@
   /* ---------- Trigger (also used for top-level links) ---------- */
   .trigger {
     @apply inline-flex h-9 w-max items-center justify-center rounded-3xl px-4.5 py-2.5 text-sm font-medium transition-all outline-none;
-    @apply hover:bg-muted focus:bg-muted focus-visible:ring-3 focus-visible:ring-ring/30 focus-visible:outline-1;
+    @apply hover:bg-muted focus:bg-muted focus-visible:ring-2 focus-visible:ring-(--focus-ring);
     @apply disabled:pointer-events-none disabled:opacity-50;
     @apply data-popup-open:bg-muted/50 data-popup-open:hover:bg-muted data-open:bg-muted/50 data-open:hover:bg-muted data-open:focus:bg-muted;
   }
@@ -69,7 +69,7 @@
 
   /* ---------- Link ---------- */
   .link {
-    @apply flex items-center gap-1.5 rounded-3xl p-3 text-sm transition-all outline-none hover:bg-muted focus:bg-muted focus-visible:ring-3 focus-visible:ring-ring/30 focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4;
+    @apply flex items-center gap-1.5 rounded-3xl p-3 text-sm transition-all outline-none hover:bg-muted focus:bg-muted focus-visible:ring-2 focus-visible:ring-(--focus-ring) [&_svg:not([class*='size-'])]:size-4;
     @apply in-data-[slot=navigation-menu-content]:rounded-2xl;
     @apply data-[active=true]:bg-muted/50 data-[active=true]:hover:bg-muted data-[active=true]:focus:bg-muted;
   }

@@ -23,7 +23,7 @@
 
   .trigger {
     @apply relative flex flex-1 items-start justify-between gap-6 border border-transparent p-4 text-left text-sm font-medium transition-all outline-none hover:underline;
-    @apply focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30;
+    @apply focus-visible:border-(--focus-ring) focus-visible:ring-2 focus-visible:ring-(--focus-ring);
     @apply aria-disabled:pointer-events-none aria-disabled:opacity-50;
   }
 

@@ -17,40 +17,31 @@
 
   /* ---------- Variants ---------- */
   .variantDefault {
-    @apply bg-primary text-primary-foreground hover:bg-primary/80;
+    @apply bg-(--button-primary-bg) text-(--button-primary-fg) hover:bg-(--button-primary-hover-bg);
   }
 
   .variantOutline {
-    @apply border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground;
+    @apply border-(--button-outline-border) bg-(--button-outline-bg) hover:bg-(--button-outline-hover-bg) hover:text-(--button-hover-fg) aria-expanded:bg-(--button-outline-hover-bg) aria-expanded:text-(--button-hover-fg);
   }
 
   .variantSecondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground;
+    @apply bg-(--button-secondary-bg) text-(--button-secondary-fg) hover:bg-(--button-secondary-hover-bg) aria-expanded:bg-(--button-secondary-bg) aria-expanded:text-(--button-secondary-fg);
   }
 
   .variantGhost {
-    @apply hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground;
+    @apply hover:bg-(--button-ghost-hover-bg) hover:text-(--button-hover-fg) aria-expanded:bg-(--button-ghost-hover-bg) aria-expanded:text-(--button-hover-fg);
   }
 
   .variantDestructive {
-    @apply bg-destructive/10 text-destructive hover:bg-destructive/20;
+    @apply bg-(--button-destructive-bg) text-(--button-destructive-fg) hover:bg-(--button-destructive-hover-bg);
   }
 
   .variantLink {
-    @apply text-primary underline-offset-4 hover:underline;
+    @apply text-(--button-link-fg) underline-offset-4 hover:underline;
   }
 
-  :global(.dark) .variantOutline {
-    @apply bg-transparent hover:bg-input/30;
-  }
 
-  :global(.dark) .variantGhost {
-    @apply hover:bg-muted/50;
-  }
 
-  :global(.dark) .variantDestructive {
-    @apply bg-destructive/20 hover:bg-destructive/30;
-  }
 
   /* ---------- Sizes ---------- */
   .sizeDefault {
@@ -92,21 +83,10 @@
 
   /* ---------- States (after variants so they take precedence) ---------- */
   .root {
-    @apply focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30;
+    @apply focus-visible:border-(--focus-ring) focus-visible:ring-2 focus-visible:ring-(--focus-ring);
     @apply active:not-aria-[haspopup]:translate-y-px;
     @apply disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50;
-    @apply aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20;
+    @apply aria-invalid:border-(--invalid-border) aria-invalid:ring-3 aria-invalid:ring-(--invalid-ring) aria-invalid:focus-visible:ring-2 aria-invalid:focus-visible:ring-(--invalid-border);
   }
 
-  :global(.dark) .root {
-    @apply aria-invalid:border-destructive/50 aria-invalid:ring-destructive/40;
-  }
-
-  .variantDestructive {
-    @apply focus-visible:border-destructive/40 focus-visible:ring-destructive/20;
-  }
-
-  :global(.dark) .variantDestructive {
-    @apply focus-visible:ring-destructive/40;
-  }
 }

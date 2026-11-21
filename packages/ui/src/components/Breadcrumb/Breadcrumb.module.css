@@ -17,7 +17,7 @@
 
   .link {
     @apply transition-colors hover:text-foreground;
-    @apply rounded-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/30;
+    @apply rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-(--focus-ring);
   }
 
   .page {

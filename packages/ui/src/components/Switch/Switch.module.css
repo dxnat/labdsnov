@@ -14,18 +14,18 @@
     @apply relative inline-flex shrink-0 items-center rounded-full border-2 transition-all outline-none;
     /* Larger hit area than the track. */
     @apply after:absolute after:-inset-x-3 after:-inset-y-2;
-    @apply data-checked:border-primary data-checked:bg-primary;
-    @apply data-unchecked:border-transparent data-unchecked:bg-input/90;
+    @apply data-checked:border-(--control-checked-bg) data-checked:bg-(--control-checked-bg);
+    @apply data-unchecked:border-transparent data-unchecked:bg-(--switch-track);
   }
 
   /* ---------- Thumb ---------- */
   .thumb {
-    @apply pointer-events-none block rounded-full bg-background bg-clip-padding shadow-sm ring-0 transition-transform;
+    @apply pointer-events-none block rounded-full bg-(--switch-thumb) bg-clip-padding data-checked:bg-(--switch-thumb-checked) shadow-sm ring-0 transition-transform;
     @apply data-checked:translate-x-[calc(100%-8px)] data-unchecked:translate-x-0;
   }
 
   :global(.dark) .thumb {
-    @apply bg-clip-border data-checked:bg-primary-foreground data-unchecked:bg-foreground;
+    @apply bg-clip-border;
   }
 
   /* ---------- Sizes ---------- */
@@ -47,12 +47,8 @@
 
   /* ---------- States (after sizes so they take precedence) ---------- */
   .root {
-    @apply focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30;
+    @apply focus-visible:border-(--focus-ring) focus-visible:ring-2 focus-visible:ring-(--focus-ring);
     @apply data-disabled:cursor-not-allowed data-disabled:opacity-50;
-    @apply aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20;
-  }
-
-  :global(.dark) .root {
-    @apply aria-invalid:border-destructive/50 aria-invalid:ring-destructive/40;
+    @apply aria-invalid:border-(--invalid-border) aria-invalid:ring-3 aria-invalid:ring-(--invalid-ring) aria-invalid:focus-visible:ring-2 aria-invalid:focus-visible:ring-(--invalid-border);
   }
 }

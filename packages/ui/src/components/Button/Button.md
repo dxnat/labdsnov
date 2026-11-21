@@ -92,7 +92,7 @@ TODO: ยังไม่มีเกณฑ์ชัดเจนว่ากา�
 
 - **Hover**: พื้นเข้มขึ้นหรือมีพื้นขึ้นมา (`link` ขีดเส้นใต้)
 - **กดค้าง**: ปุ่มเลื่อนลง 1px
-- **Focus จากคีย์บอร์ด**: เส้นขอบและวงแหวนสี ring (`destructive` ใช้สีแดง)
+- **Focus จากคีย์บอร์ด**: เส้นขอบและวงแหวนทึบ 2px สี `--focus-ring` ทุก variant (contrast อย่างน้อย 3:1 กับพื้นหน้า)
 - **ปิดใช้งาน**: จางลง 50%
 - **ข้อมูลไม่ถูกต้อง** (`aria-invalid`): เส้นขอบและวงแหวนสีแดง
 - **เปิดอยู่** (`aria-expanded`, เช่น ปุ่มที่เปิดเมนู): `outline` และ `ghost` คงพื้นไว้
@@ -101,10 +101,37 @@ TODO: ยังไม่มีเกณฑ์ชัดเจนว่ากา�
 
 ค่าทั้งหมดมาจาก `src/styles/theme.css`
 
+### Component tokens
+
+token เฉพาะของคอมโพเนนต์นี้ ชี้ไปที่ semantic token ด้านล่าง เปลี่ยนที่นี่เพื่อปรับเฉพาะคอมโพเนนต์นี้ (โหมดมืด "–" = ใช้ค่าเดียวกับโหมดสว่าง)
+
+| Token                           | โหมดสว่าง                           | โหมดมืด                 | ใช้ใน                                            |
+| ------------------------------- | ---------------------------------- | ---------------------- | ----------------------------------------------- |
+| `--button-primary-bg`           | `--primary`                        | –                      | พื้น `default`                                    |
+| `--button-primary-fg`           | `--primary-foreground`             | –                      | ตัวอักษร `default`                                |
+| `--button-primary-hover-bg`     | `--primary` ผสมดำ 12%              | `--primary` ผสมขาว 12% | พื้น `default` ตอน hover                          |
+| `--button-outline-border`       | `--border`                         | –                      | เส้นขอบ `outline`                                |
+| `--button-outline-bg`           | `--background`                     | `transparent`          | พื้น `outline`                                    |
+| `--button-outline-hover-bg`     | `--muted`                          | `--input`              | พื้น `outline` ตอน hover / เปิดเมนู                 |
+| `--button-hover-fg`             | `--foreground`                     | –                      | ตัวอักษร `outline` / `ghost` ตอน hover            |
+| `--button-secondary-bg`         | `--secondary`                      | –                      | พื้น `secondary`                                  |
+| `--button-secondary-fg`         | `--secondary-foreground`           | –                      | ตัวอักษร `secondary`                              |
+| `--button-secondary-hover-bg`   | `--secondary` ผสม`--foreground` 5% | –                      | พื้น `secondary` ตอน hover                        |
+| `--button-ghost-hover-bg`       | `--muted`                          | `--muted` 50%          | พื้น `ghost` ตอน hover / เปิดเมนู                   |
+| `--button-destructive-bg`       | `--destructive` 10%                | `--destructive` 20%    | พื้น `destructive`                                |
+| `--button-destructive-fg`       | `--destructive`                    | –                      | ตัวอักษร `destructive`                            |
+| `--button-destructive-hover-bg` | `--destructive` 18%                | `--destructive` 30%    | พื้น `destructive` ตอน hover                      |
+| `--button-link-fg`              | `--primary`                        | –                      | ตัวอักษร `link`                                   |
+| `--focus-ring`                  | `--ring`                           | –                      | วงแหวน focus จากคีย์บอร์ด (ทึบ 2px)                 |
+| `--invalid-border`              | `--destructive`                    | –                      | เส้นขอบเมื่อข้อมูลไม่ถูกต้อง และวงแหวน focus ขณะไม่ถูกต้อง |
+| `--invalid-ring`                | `--destructive` 20%                | `--destructive` 40%    | วงแหวนจางรอบช่องที่ไม่ถูกต้อง                         |
+
+### Semantic tokens
+
 | Token                    | โหมดสว่าง                     | โหมดมืด                       | ใช้ใน                                        |
 | ------------------------ | ---------------------------- | ---------------------------- | ------------------------------------------- |
-| `--primary`              | `oklch(0.553 0.195 38.402)`  | `oklch(0.47 0.157 37.304)`   | พื้น `default`, ตัวอักษร `link`                 |
-| `--primary-foreground`   | `oklch(0.98 0.016 73.684)`   | `oklch(0.98 0.016 73.684)`   | ตัวอักษร `default`                            |
+| `--primary`              | `oklch(0.553 0.195 38.402)`  | `oklch(0.705 0.187 47.604)`  | พื้น `default`, ตัวอักษร `link`                 |
+| `--primary-foreground`   | `oklch(0.98 0.016 73.684)`   | `oklch(0.205 0.05 40)`       | ตัวอักษร `default`                            |
 | `--secondary`            | `oklch(0.967 0.001 286.375)` | `oklch(0.274 0.006 286.033)` | พื้น `secondary`                              |
 | `--secondary-foreground` | `oklch(0.21 0.006 285.885)`  | `oklch(0.985 0 0)`           | ตัวอักษร `secondary`                          |
 | `--background`           | `oklch(1 0 0)`               | `oklch(0.153 0.006 107.1)`   | พื้น `outline` (โหมดสว่าง)                     |
@@ -112,8 +139,8 @@ TODO: ยังไม่มีเกณฑ์ชัดเจนว่ากา�
 | `--muted`                | `oklch(0.966 0.005 106.5)`   | `oklch(0.286 0.016 107.4)`   | hover ของ `outline`, `ghost`                |
 | `--foreground`           | `oklch(0.153 0.006 107.1)`   | `oklch(0.988 0.003 106.5)`   | ตัวอักษรตอน hover, ผสมสี hover ของ `secondary` |
 | `--input`                | `oklch(0.93 0.007 106.5)`    | `oklch(1 0 0 / 15%)`         | hover ของ `outline` (โหมดมืด)                |
-| `--destructive`          | `oklch(0.577 0.245 27.325)`  | `oklch(0.704 0.191 22.216)`  | `destructive`, สถานะไม่ถูกต้อง                 |
-| `--ring`                 | `oklch(0.737 0.021 106.9)`   | `oklch(0.58 0.031 107.3)`    | เส้นขอบและวงแหวน focus                       |
+| `--destructive`          | `oklch(0.505 0.2 27.325)`    | `oklch(0.75 0.16 22.216)`    | `destructive`, สถานะไม่ถูกต้อง                 |
+| `--ring`                 | `oklch(0.45 0.03 106.9)`     | `oklch(0.8 0.02 106.9)`      | เส้นขอบและวงแหวน focus                       |
 | `--radius`               | `0.625rem`                   | –                            | มุมโค้ง (`--radius × 2.6` = 26px ทรงแคปซูล)    |
 
 ## Example

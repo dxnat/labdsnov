@@ -75,7 +75,7 @@
   }
 
   .weekday {
-    @apply flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none;
+    @apply flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-(--calendar-label-fg) select-none;
   }
 
   .week {
@@ -87,7 +87,7 @@
   }
 
   .weekNumber {
-    @apply text-[0.8rem] text-muted-foreground select-none;
+    @apply text-[0.8rem] text-(--calendar-label-fg) select-none;
   }
 
   .weekNumberCell {
@@ -108,7 +108,7 @@
   }
 
   .rangeStart {
-    @apply relative isolate z-0 rounded-l-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-muted;
+    @apply relative isolate z-0 rounded-l-(--cell-radius) bg-(--calendar-range-bg) after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-(--calendar-range-bg);
   }
 
   .rangeMiddle {
@@ -116,11 +116,11 @@
   }
 
   .rangeEnd {
-    @apply relative isolate z-0 rounded-r-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:left-0 after:w-4 after:bg-muted;
+    @apply relative isolate z-0 rounded-r-(--cell-radius) bg-(--calendar-range-bg) after:absolute after:inset-y-0 after:left-0 after:w-4 after:bg-(--calendar-range-bg);
   }
 
   .today {
-    @apply rounded-(--cell-radius) bg-muted text-foreground data-[selected=true]:rounded-none;
+    @apply rounded-(--cell-radius) bg-(--calendar-today-bg) text-foreground data-[selected=true]:rounded-none;
   }
 
   .outside {
@@ -138,10 +138,10 @@
   /* ---------- Day button (a ghost icon Button) ---------- */
   .calendar .dayButton {
     @apply relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal [&>span]:text-xs [&>span]:opacity-70;
-    @apply data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground;
-    @apply data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground;
-    @apply data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground;
-    @apply data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground;
+    @apply data-[selected-single=true]:bg-(--calendar-day-selected-bg) data-[selected-single=true]:text-(--calendar-day-selected-fg);
+    @apply data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-(--calendar-day-selected-bg) data-[range-start=true]:text-(--calendar-day-selected-fg);
+    @apply data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-(--calendar-day-selected-bg) data-[range-end=true]:text-(--calendar-day-selected-fg);
+    @apply data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-(--calendar-range-bg) data-[range-middle=true]:text-foreground;
   }
 
   :global(.dark) .calendar .dayButton {
@@ -149,6 +149,6 @@
   }
 
   .day[data-focused="true"] .dayButton {
-    @apply relative z-10 border-ring ring-[3px] ring-ring/50;
+    @apply relative z-10 border-(--focus-ring) ring-2 ring-(--focus-ring);
   }
 }

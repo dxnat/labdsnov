@@ -9,11 +9,11 @@
 @layer components {
   /* ---------- Box ---------- */
   .root {
-    @apply relative flex size-4 shrink-0 items-center justify-center rounded-[5px] border border-transparent bg-input/90 transition-shadow outline-none;
+    @apply relative flex size-4 shrink-0 items-center justify-center rounded-[5px] border border-(--control-border) bg-(--control-bg) transition-shadow outline-none;
     /* Larger hit area than the 16px box. */
     @apply after:absolute after:-inset-x-3 after:-inset-y-2;
-    @apply data-checked:border-primary data-checked:bg-primary data-checked:text-primary-foreground;
-    @apply data-indeterminate:border-primary data-indeterminate:bg-primary data-indeterminate:text-primary-foreground;
+    @apply data-checked:border-(--control-checked-bg) data-checked:bg-(--control-checked-bg) data-checked:text-(--control-checked-fg);
+    @apply data-indeterminate:border-(--control-checked-bg) data-indeterminate:bg-(--control-checked-bg) data-indeterminate:text-(--control-checked-fg);
   }
 
   /* ---------- Indicator: tick when checked, dash when indeterminate ---------- */
@@ -33,12 +33,8 @@
 
   /* ---------- States (after the base rules so they take precedence) ---------- */
   .root {
-    @apply focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30;
+    @apply focus-visible:border-(--focus-ring) focus-visible:ring-2 focus-visible:ring-(--focus-ring);
     @apply data-disabled:cursor-not-allowed data-disabled:opacity-50;
-    @apply aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 aria-invalid:data-checked:border-primary;
-  }
-
-  :global(.dark) .root {
-    @apply aria-invalid:border-destructive/50 aria-invalid:ring-destructive/40;
+    @apply aria-invalid:border-(--invalid-border) aria-invalid:ring-3 aria-invalid:ring-(--invalid-ring) aria-invalid:focus-visible:ring-2 aria-invalid:focus-visible:ring-(--invalid-border) aria-invalid:data-checked:border-(--control-checked-bg);
   }
 }

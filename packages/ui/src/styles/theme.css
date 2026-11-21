@@ -1,6 +1,8 @@
 /*
- * Design tokens, copied from the app's src/app/globals.css.
- * Colour/radius variables in :root and .dark, mapped to Tailwind via @theme inline.
+ * Design tokens. Started as a copy of the app's src/app/globals.css; the
+ * colour values have since been changed to pass WCAG 2.2 AA (see AGENTS.md).
+ * Semantic colour/radius variables in :root and .dark (mapped to Tailwind via
+ * the theme block at the end), then component tokens that point at them.
  * Change token values here (and in the app) rather than in component CSS.
  * Imported by index.css (shipped) and reference.css (for CSS-module @reference).
  */
@@ -10,6 +12,12 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* ---------- Semantic tokens ----------
+   * Checked against WCAG 2.2 AA: text pairs ≥ 4.5:1, control boundaries,
+   * focus rings, chart series ≥ 3:1. `--border` is for decorative edges
+   * (cards, separators, tables); use `--control-border` where the edge is
+   * what shows that something is a field or control.
+   */
   --background: oklch(1 0 0);
   --foreground: oklch(0.153 0.006 107.1);
   --card: oklch(1 0 0);
@@ -21,29 +29,30 @@
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
   --muted: oklch(0.966 0.005 106.5);
-  --muted-foreground: oklch(0.58 0.031 107.3);
+  --muted-foreground: oklch(0.5 0.027 107.3);
   --accent: oklch(0.966 0.005 106.5);
   --accent-foreground: oklch(0.228 0.013 107.4);
-  --destructive: oklch(0.577 0.245 27.325);
-  --success: oklch(0.55 0.14 150);
-  --warning: oklch(0.6 0.15 65);
+  --destructive: oklch(0.505 0.2 27.325);
+  --success: oklch(0.49 0.12 150);
+  --warning: oklch(0.5 0.12 60);
   --border: oklch(0.93 0.007 106.5);
   --input: oklch(0.93 0.007 106.5);
-  --ring: oklch(0.737 0.021 106.9);
-  --chart-1: oklch(0.897 0.196 126.665);
-  --chart-2: oklch(0.768 0.233 130.85);
-  --chart-3: oklch(0.648 0.2 131.684);
-  --chart-4: oklch(0.532 0.157 131.589);
-  --chart-5: oklch(0.453 0.124 130.933);
+  --control-border: oklch(0.6 0.02 106.9);
+  --ring: oklch(0.45 0.03 106.9);
+  --chart-1: oklch(0.553 0.195 38.402);
+  --chart-2: oklch(0.52 0.1 190);
+  --chart-3: oklch(0.5 0.17 262);
+  --chart-4: oklch(0.52 0.19 330);
+  --chart-5: oklch(0.55 0.15 135);
   --radius: 0.625rem;
   --sidebar: oklch(0.988 0.003 106.5);
   --sidebar-foreground: oklch(0.153 0.006 107.1);
-  --sidebar-primary: oklch(0.646 0.222 41.116);
+  --sidebar-primary: oklch(0.553 0.195 38.402);
   --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
   --sidebar-accent: oklch(0.966 0.005 106.5);
   --sidebar-accent-foreground: oklch(0.228 0.013 107.4);
   --sidebar-border: oklch(0.93 0.007 106.5);
-  --sidebar-ring: oklch(0.737 0.021 106.9);
+  --sidebar-ring: oklch(0.45 0.03 106.9);
 }
 
 .dark {
@@ -53,33 +62,139 @@
   --card-foreground: oklch(0.988 0.003 106.5);
   --popover: oklch(0.228 0.013 107.4);
   --popover-foreground: oklch(0.988 0.003 106.5);
-  --primary: oklch(0.47 0.157 37.304);
-  --primary-foreground: oklch(0.98 0.016 73.684);
+  --primary: oklch(0.705 0.187 47.604);
+  --primary-foreground: oklch(0.205 0.05 40);
   --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.286 0.016 107.4);
   --muted-foreground: oklch(0.737 0.021 106.9);
   --accent: oklch(0.286 0.016 107.4);
   --accent-foreground: oklch(0.988 0.003 106.5);
-  --destructive: oklch(0.704 0.191 22.216);
+  --destructive: oklch(0.75 0.16 22.216);
   --success: oklch(0.75 0.16 150);
   --warning: oklch(0.82 0.15 80);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.58 0.031 107.3);
-  --chart-1: oklch(0.897 0.196 126.665);
-  --chart-2: oklch(0.768 0.233 130.85);
-  --chart-3: oklch(0.648 0.2 131.684);
-  --chart-4: oklch(0.532 0.157 131.589);
-  --chart-5: oklch(0.453 0.124 130.933);
+  --control-border: oklch(0.55 0.015 106.9);
+  --ring: oklch(0.8 0.02 106.9);
+  --chart-1: oklch(0.705 0.187 47.604);
+  --chart-2: oklch(0.72 0.11 190);
+  --chart-3: oklch(0.7 0.14 262);
+  --chart-4: oklch(0.72 0.17 330);
+  --chart-5: oklch(0.78 0.17 135);
   --sidebar: oklch(0.228 0.013 107.4);
   --sidebar-foreground: oklch(0.988 0.003 106.5);
-  --sidebar-primary: oklch(0.705 0.213 47.604);
-  --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
+  --sidebar-primary: oklch(0.705 0.187 47.604);
+  --sidebar-primary-foreground: oklch(0.205 0.05 40);
   --sidebar-accent: oklch(0.286 0.016 107.4);
   --sidebar-accent-foreground: oklch(0.988 0.003 106.5);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.58 0.031 107.3);
+  --sidebar-ring: oklch(0.8 0.02 106.9);
+}
+
+/* ---------- Component tokens ----------
+ * What each component paints, named by component and part. They point at the
+ * semantic tokens above, so a theme normally changes only those; override one
+ * of these to restyle a single component. Declared on `.dark` as well as
+ * `:root` so they follow a `.dark` class placed below `<html>`.
+ */
+:root,
+.dark {
+  /* Shared states */
+  --focus-ring: var(--ring);
+  --invalid-border: var(--destructive);
+  --invalid-ring: color-mix(in oklab, var(--destructive) 20%, transparent);
+
+  /* Button */
+  --button-primary-bg: var(--primary);
+  --button-primary-fg: var(--primary-foreground);
+  --button-primary-hover-bg: color-mix(in oklab, var(--primary) 88%, black);
+  --button-secondary-bg: var(--secondary);
+  --button-secondary-fg: var(--secondary-foreground);
+  --button-secondary-hover-bg: color-mix(in oklab, var(--secondary) 95%, var(--foreground));
+  --button-outline-bg: var(--background);
+  --button-outline-border: var(--border);
+  --button-outline-hover-bg: var(--muted);
+  --button-ghost-hover-bg: var(--muted);
+  --button-hover-fg: var(--foreground);
+  --button-destructive-bg: color-mix(in oklab, var(--destructive) 10%, transparent);
+  --button-destructive-hover-bg: color-mix(in oklab, var(--destructive) 18%, transparent);
+  --button-destructive-fg: var(--destructive);
+  --button-link-fg: var(--primary);
+
+  /* Badge */
+  --badge-default-bg: var(--primary);
+  --badge-default-fg: var(--primary-foreground);
+  --badge-secondary-bg: var(--secondary);
+  --badge-secondary-fg: var(--secondary-foreground);
+  --badge-outline-border: var(--border);
+  --badge-outline-fg: var(--foreground);
+  --badge-destructive-bg: color-mix(in oklab, var(--destructive) 10%, transparent);
+  --badge-destructive-fg: var(--destructive);
+  --badge-success-bg: color-mix(in oklab, var(--success) 10%, transparent);
+  --badge-success-fg: var(--success);
+  --badge-warning-bg: color-mix(in oklab, var(--warning) 10%, transparent);
+  --badge-warning-fg: var(--warning);
+
+  /* Text fields: Input, Textarea, Select trigger, InputGroup, Combobox, InputOTP */
+  --field-bg: color-mix(in oklab, var(--input) 50%, transparent);
+  --field-border: var(--control-border);
+  --field-placeholder: var(--muted-foreground);
+  --field-icon: var(--muted-foreground);
+
+  /* Checkbox, RadioGroup, Switch */
+  --control-bg: var(--background);
+  --control-checked-bg: var(--primary);
+  --control-checked-fg: var(--primary-foreground);
+  --switch-track: var(--control-border);
+  --switch-thumb: var(--background);
+  --switch-thumb-checked: var(--primary-foreground);
+
+  /* Tabs */
+  --tabs-list-bg: var(--muted);
+  --tabs-trigger-fg: var(--muted-foreground);
+  --tabs-trigger-active-bg: var(--background);
+  --tabs-trigger-active-fg: var(--foreground);
+  --tabs-indicator: var(--foreground);
+
+  /* Progress */
+  --progress-track: var(--muted);
+  --progress-indicator: var(--primary);
+
+  /* Menus and lists: Select, DropdownMenu, Combobox, NavigationMenu */
+  --menu-item-highlight-bg: var(--accent);
+  --menu-item-highlight-fg: var(--accent-foreground);
+  --menu-label-fg: var(--muted-foreground);
+  --menu-destructive-fg: var(--destructive);
+  --menu-destructive-highlight-bg: color-mix(in oklab, var(--destructive) 10%, transparent);
+
+  /* Tooltip */
+  --tooltip-bg: var(--foreground);
+  --tooltip-fg: var(--background);
+
+  /* Calendar */
+  --calendar-day-selected-bg: var(--primary);
+  --calendar-day-selected-fg: var(--primary-foreground);
+  --calendar-range-bg: var(--muted);
+  --calendar-today-bg: var(--muted);
+  --calendar-label-fg: var(--muted-foreground);
+}
+
+.dark {
+  --invalid-ring: color-mix(in oklab, var(--destructive) 40%, transparent);
+  --button-primary-hover-bg: color-mix(in oklab, var(--primary) 88%, white);
+  --button-outline-bg: transparent;
+  --button-outline-hover-bg: var(--input);
+  --button-ghost-hover-bg: color-mix(in oklab, var(--muted) 50%, transparent);
+  --button-destructive-bg: color-mix(in oklab, var(--destructive) 20%, transparent);
+  --button-destructive-hover-bg: color-mix(in oklab, var(--destructive) 30%, transparent);
+  --badge-destructive-bg: color-mix(in oklab, var(--destructive) 20%, transparent);
+  --badge-success-bg: color-mix(in oklab, var(--success) 20%, transparent);
+  --badge-warning-bg: color-mix(in oklab, var(--warning) 20%, transparent);
+  --control-bg: color-mix(in oklab, var(--input) 50%, transparent);
+  --switch-thumb: var(--foreground);
+  --tabs-trigger-active-bg: var(--input);
+  --menu-destructive-highlight-bg: color-mix(in oklab, var(--destructive) 20%, transparent);
 }
 
 @theme inline {
@@ -104,6 +219,7 @@
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
+  --color-control-border: var(--control-border);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
   --color-success: var(--success);
