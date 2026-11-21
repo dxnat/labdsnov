@@ -12,6 +12,7 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
+          "Overview",
           "Guides",
           ["Getting started", "Contributing"],
           "Foundations",
