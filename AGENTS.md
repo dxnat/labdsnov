@@ -10,6 +10,15 @@ A pnpm monorepo for **`labdsnov`**, a public npm design system based on [shadcn/
 - `apps/storybook`: Storybook 10 config only (private, not published). It renders the `*.stories.tsx` files that sit next to each component in `packages/ui`. Every component has stories; add one for each new component.
 - Publishing is planned for a later milestone (Week 4). Don't `npm publish`/`pnpm publish`, and set `license`/access before doing so.
 
+## Component usage docs (read first)
+
+Every component has a usage doc beside it: `packages/ui/src/components/<Name>/<Name>.md` (Badge, Button, Dialog, FundCard, Input, Label). They're written in Thai for designers and AI agents building UI.
+
+- **Before using or changing a component, read its `<Name>.md`.** It says when to use it, when not to and what to use instead, which props, variants and sizes exist, the content rules (labels, button order, Thai copy) and which tokens it uses. Follow it when you build UI with the library, e.g. in stories or in the DSADV app.
+- Items marked `TODO` are open design decisions. Don't fill them in by guessing: ask, or leave the TODO in place.
+- **Keep the doc in sync.** When you add, rename or remove a prop, variant, size or token use, or change behaviour, update the matching `<Name>.md` in the same change.
+- **New components need one.** Follow the existing docs' sections: Purpose (one line), When to use, When not to use, Props and variants (only ones that exist), Tokens used, and one example taken from the stories. Leave out implementation details (exports, data attributes, CSS utilities), and mark anything unsure as `TODO`.
+
 ## Commands
 
 ```bash
@@ -29,7 +38,7 @@ There's no unit-test runner. Verify changes with typecheck, lint, build, by insp
 ## Component conventions (`packages/ui/src/components/<Name>/`)
 
 - **Base UI, not Radix.** Components wrap `@base-ui/react`. To render a custom element as a trigger/close, use the `render` prop (`<DialogTrigger render={<Button />}>`), not `asChild`. Icons are Hugeicons (`@hugeicons/react` + `@hugeicons/core-free-icons`), not lucide.
-- **One folder per component:** `<Name>.tsx` + `<Name>.module.css` + `index.ts` + `<Name>.stories.tsx` (optional `<Name>.md` docs, in Thai). Story files are excluded from `tsconfig.build.json`, and the Vite build only follows imports from `index.ts`, so they never reach `dist`. Storybook is a devDependency of `packages/ui` because stories import `storybook/test`.
+- **One folder per component:** `<Name>.tsx` + `<Name>.module.css` + `index.ts` + `<Name>.stories.tsx` + `<Name>.md` (usage doc in Thai, see "Component usage docs"). Story files are excluded from `tsconfig.build.json`, and the Vite build only follows imports from `index.ts`, so they never reach `dist`. Storybook is a devDependency of `packages/ui` because stories import `storybook/test`.
 - **`<Name>.tsx` has no Tailwind class strings.** It maps semantic props to module classes through a typed lookup (`const variantClass = { default: styles.variantDefault, … } as const`; the `XVariant` type is `keyof typeof variantClass`). It merges the caller's `className` last with `cn(styles.root, variantClass[variant], className)`, using the `cn` package (shadcn's clsx + tailwind-merge replacement), and sets `data-slot`/`data-variant`/`data-size`. To add a look, add a prop and a module class; there is no `cva`.
 - **`<Name>.module.css`** starts with `@reference "../../styles/reference.css";` and `@layer theme, base, components, utilities;`. All rules go in `@layer components { … }` using `@apply`, so a consumer's Tailwind utilities passed via `className` always win.
   - Don't `@apply` `dark:`, `group-*:` or `peer-*:` in modules, because CSS Modules would rename `.dark`/`.group`/`.peer`. Write `:global(.dark) .x { @apply … }` instead.
