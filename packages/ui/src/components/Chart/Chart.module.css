@@ -1,0 +1,107 @@
+/*
+ * Chart styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * The container restyles Recharts' own SVG classes with tokens (axis text,
+ * grid lines, cursors). Series colours come from --color-<key> (see ChartStyle).
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .container {
+    @apply flex aspect-video justify-center text-xs;
+    @apply [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50;
+    @apply [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted;
+    @apply [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-sector[stroke='#fff']]:stroke-transparent;
+    @apply [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted;
+    @apply [&_.recharts-layer]:outline-hidden [&_.recharts-sector]:outline-hidden [&_.recharts-surface]:outline-hidden;
+  }
+
+  /* ---------- Tooltip ---------- */
+  .tooltip {
+    @apply grid min-w-32 items-start gap-1.5 rounded-xl bg-popover px-2.5 py-1.5 text-xs text-popover-foreground shadow-lg ring-1 ring-foreground/5;
+  }
+
+  :global(.dark) .tooltip {
+    @apply ring-foreground/10;
+  }
+
+  .tooltipLabel {
+    @apply font-medium;
+  }
+
+  .tooltipItems {
+    @apply grid gap-1.5;
+  }
+
+  .tooltipItem {
+    @apply flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground;
+  }
+
+  .tooltipItemCentered {
+    @apply items-center;
+  }
+
+  .tooltipRow {
+    @apply flex flex-1 justify-between leading-none;
+  }
+
+  .tooltipRowEnd {
+    @apply items-end;
+  }
+
+  .tooltipRowCenter {
+    @apply items-center;
+  }
+
+  .tooltipName {
+    @apply text-muted-foreground;
+  }
+
+  .tooltipValue {
+    @apply font-mono font-medium text-foreground tabular-nums;
+  }
+
+  /* ---------- Tooltip indicator ---------- */
+  .indicator {
+    @apply shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg);
+  }
+
+  .indicatorDot {
+    @apply h-2.5 w-2.5;
+  }
+
+  .indicatorLine {
+    @apply w-1;
+  }
+
+  .indicatorDashed {
+    @apply w-0 border-[1.5px] border-dashed bg-transparent;
+  }
+
+  .indicatorNested {
+    @apply my-0.5;
+  }
+
+  /* ---------- Legend ---------- */
+  .legend {
+    @apply flex items-center justify-center gap-4;
+  }
+
+  .legendTop {
+    @apply pb-3;
+  }
+
+  .legendBottom {
+    @apply pt-3;
+  }
+
+  .legendItem {
+    @apply flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground;
+  }
+
+  .legendSwatch {
+    @apply h-2 w-2 shrink-0 rounded-[2px];
+  }
+}

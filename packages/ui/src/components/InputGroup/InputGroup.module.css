@@ -1,0 +1,101 @@
+/*
+ * InputGroup styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ *
+ * - shadcn's `group/input-group` variants become descendant rules
+ *   (`.root:has(> input) .addonBlockStart`, `.root[data-disabled="true"] .addon`).
+ * - The inner Input/Textarea keep their own module classes, so the reset uses
+ *   `.root .control` (two classes) to beat them whatever the CSS load order.
+ * - Inside a Combobox popup the group drops its focus ring (the list shows focus).
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  /* ---------- Group (looks like Input `filled`) ---------- */
+  .root {
+    @apply relative flex h-9 w-full min-w-0 items-center rounded-4xl border border-transparent bg-input/50 transition-[color,box-shadow,background-color] outline-none;
+    @apply has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot=input-group-control]:focus-visible]:ring-ring/30;
+    @apply has-[[data-slot][aria-invalid=true]]:border-destructive has-[[data-slot][aria-invalid=true]]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-destructive/20;
+    /* Block addons and textareas make the group a taller column. */
+    @apply has-data-[align=block-end]:rounded-3xl has-data-[align=block-start]:rounded-3xl has-[textarea]:rounded-2xl;
+    @apply has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto;
+    @apply has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5;
+    @apply in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0;
+  }
+
+  :global(.dark) .root {
+    @apply has-[[data-slot][aria-invalid=true]]:ring-destructive/40;
+  }
+
+  /* ---------- Inner control: no own background, border or ring ---------- */
+  .root .control,
+  .control {
+    @apply flex-1 rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0;
+  }
+
+  .root .controlTextarea,
+  .controlTextarea {
+    @apply resize-none py-2.5;
+  }
+
+  /* ---------- Addon ---------- */
+  .addon {
+    @apply flex h-auto cursor-text items-center justify-center gap-2 py-2 text-sm font-medium text-muted-foreground select-none [&>svg:not([class*='size-'])]:size-4;
+    @apply **:data-[slot=kbd]:rounded-3xl **:data-[slot=kbd]:bg-muted-foreground/10 **:data-[slot=kbd]:px-1.5;
+  }
+
+  .root[data-disabled="true"] .addon {
+    @apply opacity-50;
+  }
+
+  .addonInlineStart {
+    @apply order-first pl-3 has-[>button]:-ml-1 has-[>kbd]:-ml-1;
+  }
+
+  .addonInlineEnd {
+    @apply order-last pr-3 has-[>button]:-mr-1 has-[>kbd]:-mr-1;
+  }
+
+  .addonBlockStart {
+    @apply order-first w-full justify-start px-3 pt-3 [.border-b]:pb-3.5;
+  }
+
+  .addonBlockEnd {
+    @apply order-last w-full justify-start px-3 pb-3 [.border-t]:pt-3.5;
+  }
+
+  .root:has(> input) .addonBlockStart {
+    @apply pt-3.5;
+  }
+
+  .root:has(> input) .addonBlockEnd {
+    @apply pb-3.5;
+  }
+
+  /* ---------- Button (two classes, to beat Button's own size rules) ---------- */
+  .addon .button,
+  .button {
+    @apply flex items-center gap-2 rounded-4xl text-sm shadow-none;
+  }
+
+  .addon .buttonXs,
+  .buttonXs {
+    @apply h-6 gap-1 rounded-xl px-1.5 [&>svg:not([class*='size-'])]:size-3.5;
+  }
+
+  .addon .buttonIconXs,
+  .buttonIconXs {
+    @apply size-6 rounded-xl p-0 has-[>svg]:p-0;
+  }
+
+  .addon .buttonIconSm,
+  .buttonIconSm {
+    @apply size-8 p-0 has-[>svg]:p-0;
+  }
+
+  .text {
+    @apply flex items-center gap-2 text-sm text-muted-foreground [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4;
+  }
+}

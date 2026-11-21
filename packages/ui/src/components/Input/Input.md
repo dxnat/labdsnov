@@ -33,7 +33,7 @@ import { Input, Label } from "labdsnov"
 
 - **ข้อความหลายบรรทัด**: ใช้ `Textarea`
 - **เลือกจากรายการ หรือเปิด/ปิด**: ใช้ `Select`, `RadioGroup`, `Checkbox` หรือ `Switch`
-- **เลือกวันที่**: TODO: ยังไม่มีคอมโพเนนต์ date picker
+- **เลือกวันที่**: ใช้ `DatePicker`
 - **ใช้ placeholder แทนป้ายชื่อ**: placeholder หายไปเมื่อเริ่มพิมพ์ ใช้แค่ยกตัวอย่างรูปแบบ เช่น "04xx xxx xxx"
 
 ## Props and variants

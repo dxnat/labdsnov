@@ -6,7 +6,7 @@ This file provides guidance to AI coding agents (Claude Code, Codex, etc.) worki
 
 A pnpm monorepo for **`labdsnov`**, a public npm design system based on [shadcn/ui](https://ui.shadcn.com) (React 19 + TypeScript, Tailwind CSS v4). Its components come from the DSADV member-portal app (`~/Desktop/dsadv`, a Next.js 16 app for a Thai-language superannuation portal). The app keeps its own copies, so the two codebases are separate.
 
-- `packages/ui`: the library (Alert, Badge, Button, Card, Checkbox, Dialog, DropdownMenu, Field, FundCard, Input, Label, Popover, Progress, RadioGroup, Select, Separator, Skeleton, Switch, Table, Tabs, Textarea, Toaster, Tooltip). Most are ported from shadcn's `base-luma` style (the app's `components.json` style); FundCard is the app's own.
+- `packages/ui`: the library (Accordion, Alert, AlertDialog, Avatar, Badge, Breadcrumb, Button, Calendar, Card, Chart, Checkbox, Combobox, DatePicker, Dialog, Drawer, DropdownMenu, Empty, Field, FundCard, Input, InputGroup, InputOTP, Label, NavigationMenu, Pagination, Popover, Progress, RadioGroup, Select, Separator, Skeleton, Spinner, Switch, Table, Tabs, Textarea, Toaster, Tooltip). Most are ported from shadcn's `base-luma` style (the app's `components.json` style); FundCard is the app's own, and DatePicker composes Popover + Calendar + Button (shadcn only has a recipe for it).
 - `apps/storybook`: Storybook 10 config only (private, not published). It renders the `*.stories.tsx` files that sit next to each component in `packages/ui`. Every component has stories; add one for each new component.
 - Publishing is planned for a later milestone (Week 4). Don't `npm publish`/`pnpm publish`, and set `license`/access before doing so.
 
@@ -47,8 +47,10 @@ There's no unit-test runner. Verify changes with typecheck, lint, build, by insp
   - When the parent is another component (e.g. Field styling a Checkbox inside it), match it through its `data-slot` attribute, which CSS Modules don't rename: `:where([data-slot="field"][data-disabled="true"]) .label`. See `Field.module.css`.
   - Keep state rules (focus, invalid, disabled) after variant rules.
 - **Shipped UI copy is Thai** (e.g. the Dialog close label "ปิด"). FundCard formats AUD and dates with `Intl` in the `th-TH` locale.
+- **Dates are Thai with the Buddhist year** (`th-TH`, e.g. "13 พ.ย. 2569"): FundCard, DatePicker and Calendar. Calendar takes month and weekday names from `react-day-picker/locale` `th` and formats captions, the year dropdown and day labels with `Intl`, because `date-fns` `th` uses the Gregorian year.
+- **Links that look like buttons are `<a>` with `buttonVariants()`**, not `Button` with `render={<a />}`: Base UI's Button gives non-`<button>` elements `role="button"`, so screen readers stop calling them links (see Pagination).
 - **Public API = `src/index.ts`.** Renaming or removing an export, prop or variant is a breaking change.
-- **`"use client"`** goes on any component that calls hooks or React context (Badge, Dialog, Field, Label, Toaster). Base UI primitives already carry their own directive. Wrappers that only render Base UI parts (e.g. Button, Select, Tabs) don't need it.
+- **`"use client"`** goes on any component that calls hooks or React context (Badge, Breadcrumb, Calendar, Chart, Combobox, DatePicker, Dialog, Drawer, Field, InputOTP, Label, Toaster). Base UI primitives already carry their own directive. Wrappers that only render Base UI parts (e.g. Button, Select, Tabs) don't need it.
 
 ## Styles and tokens
 
@@ -62,7 +64,7 @@ There's no unit-test runner. Verify changes with typecheck, lint, build, by insp
 - Vite library mode with `@tailwindcss/vite`: tsup/esbuild can't run Tailwind `@apply` inside CSS modules.
 - ESM only, with `preserveModules`, so there's one output file per source file. Module classes are scoped as `dsadv_[local]_[hash]`.
 - Rollup strips module-level directives. The local `preserveUseClient` plugin re-adds `"use client"` to outputs whose source starts with it.
-- Everything in `dependencies`/`peerDependencies` is external: `react`, `react-dom` and `next` are peers (`next` because FundCard uses `next/image`). `sonner` (a dependency) powers Toaster; unlike shadcn's version it doesn't use `next-themes`, it follows the `.dark` class on `<html>`. Types come from `tsc -p tsconfig.build.json`.
+- Everything in `dependencies`/`peerDependencies` is external: `react`, `react-dom` and `next` are peers (`next` because FundCard uses `next/image`). `sonner` (a dependency) powers Toaster; unlike shadcn's version it doesn't use `next-themes`, it follows the `.dark` class on `<html>`. Calendar uses `react-day-picker` + `date-fns`, InputOTP uses `input-otp`, Chart uses `recharts`. Types come from `tsc -p tsconfig.build.json`.
 
 ## Storybook (`apps/storybook`)
 
@@ -79,7 +81,7 @@ There's no unit-test runner. Verify changes with typecheck, lint, build, by insp
   - Thai copy, and an `aria-label` on icon-only buttons
 - Hover and `:active` styles can't be forced in a story; check them by hand.
 - **Play-function pitfalls** (each one caused a false failure):
-  - **Typing:** `userEvent.type` changes an Input's value but never fires React's `onChange` on Base UI's `Input`. Use `fireEvent.change(input, { target: { value } })` to check `onChange`. Focus, tab and click via `userEvent` are fine.
+  - **Typing:** `userEvent.type` changes an Input's value but never fires React's `onChange` on Base UI's `Input`. The same goes for Textarea, InputGroup, Combobox (filtering) and InputOTP (`input-otp`). Use `fireEvent.change(input, { target: { value } })` to check `onChange`. Focus, tab and click via `userEvent` are fine.
   - **Dialog:** the popup is portalled to `document.body`, so query it with `screen`, not `canvas`. Assert closing by state (trigger `aria-expanded="false"`, popup `data-closed`), not by the popup leaving the DOM. Base UI unmounts only after the exit animation, and animations pause when the page is hidden, e.g. a background tab or Claude's browser pane while the app is unfocused.
   - **Modal stories:** stories rendered with `defaultOpen` need `tags: ["!autodocs"]`, or the modal covers the Docs page.
   - **Animated popups (Tooltip, Toaster, Popover, Select, DropdownMenu):** assert open/closed by state (`data-open` / `data-closed`, `aria-expanded`) or presence, never `toBeVisible()`: they fade in, and animations pause in a hidden page. A tooltip opened by keyboard focus also needs the page itself to have focus.
@@ -89,6 +91,6 @@ There's no unit-test runner. Verify changes with typecheck, lint, build, by insp
 
 ## Checking a build
 
-- `grep -l '^"use client"' dist/components/*/*.js` should list exactly Badge, Dialog, Field, Label and Toaster.
+- `grep -l '^"use client"' dist/components/*/*.js` should list exactly Badge, Breadcrumb, Calendar, Chart, Combobox, DatePicker, Dialog, Drawer, Field, InputOTP, Label, Toaster.
 - `dist/styles.css` should keep the layer order `properties < theme < base < components < utilities` and contain no plain utility classes (e.g. no `.flex{`).
 - The Vite warning "Error when using sourcemap for reporting an error" on the `"use client"` files is expected.

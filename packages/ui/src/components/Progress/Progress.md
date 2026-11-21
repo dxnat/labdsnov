@@ -32,7 +32,7 @@ import { Progress, ProgressLabel, ProgressValue } from "labdsnov"
 ## When not to use
 
 - **รอโดยไม่รู้ว่านานเท่าไร**: ใช้ `Skeleton` สำหรับเนื้อหาที่โหลด (หรือ `value={null}` ถ้าต้องเป็นแถบ)
-- **เปรียบเทียบตัวเลขหลายค่า**: ใช้ตารางหรือกราฟ TODO: ยังไม่มีคอมโพเนนต์กราฟ
+- **เปรียบเทียบตัวเลขหลายค่า**: ใช้ตารางหรือกราฟ หรือ `Chart`
 
 ## Props and variants
 

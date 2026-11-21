@@ -1,0 +1,50 @@
+/*
+ * InputOTP styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * Boxes match Input's `filled` look (36px, --input tint).
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .container {
+    @apply flex items-center gap-2 has-disabled:opacity-50;
+  }
+
+  .input {
+    @apply disabled:cursor-not-allowed;
+  }
+
+  .group {
+    @apply flex items-center rounded-3xl;
+    @apply has-aria-invalid:border-destructive has-aria-invalid:ring-3 has-aria-invalid:ring-destructive/20;
+  }
+
+  :global(.dark) .group {
+    @apply has-aria-invalid:ring-destructive/40;
+  }
+
+  /* ---------- Slot: boxes join into one pill per group ---------- */
+  .slot {
+    @apply relative flex size-9 items-center justify-center border-y border-r border-input bg-input/50 text-sm transition-all outline-none first:rounded-l-3xl first:border-l last:rounded-r-3xl;
+    @apply aria-invalid:border-destructive;
+    @apply data-[active=true]:z-10 data-[active=true]:border-ring data-[active=true]:ring-3 data-[active=true]:ring-ring/30 data-[active=true]:aria-invalid:ring-destructive/20;
+  }
+
+  :global(.dark) .slot {
+    @apply data-[active=true]:aria-invalid:ring-destructive/40;
+  }
+
+  .caretWrap {
+    @apply pointer-events-none absolute inset-0 flex items-center justify-center;
+  }
+
+  .caret {
+    @apply h-4 w-px animate-caret-blink bg-foreground duration-1000;
+  }
+
+  .separator {
+    @apply flex items-center [&_svg:not([class*='size-'])]:size-4;
+  }
+}

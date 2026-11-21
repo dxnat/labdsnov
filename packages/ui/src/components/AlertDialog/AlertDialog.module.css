@@ -1,0 +1,69 @@
+/*
+ * AlertDialog styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * shadcn's `group-data-[size=…]/alert-dialog-content:` becomes a descendant
+ * rule between module classes (`.sizeSm .footer`). Surface matches Dialog.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .overlay {
+    @apply fixed inset-0 isolate z-50 bg-black/30 duration-100 supports-backdrop-filter:backdrop-blur-sm;
+    @apply data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0;
+  }
+
+  .content {
+    @apply fixed top-1/2 left-1/2 z-50 grid w-full max-w-xs -translate-x-1/2 -translate-y-1/2 gap-6 rounded-4xl bg-popover p-6 text-popover-foreground shadow-xl ring-1 ring-foreground/5 duration-100 outline-none;
+    @apply data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95;
+  }
+
+  :global(.dark) .content {
+    @apply ring-foreground/10;
+  }
+
+  .sizeDefault {
+    @apply sm:max-w-md;
+  }
+
+  /* ---------- Header: centred; left-aligned in `default` from 640px ---------- */
+  .header {
+    @apply grid grid-rows-[auto_1fr] place-items-center gap-1.5 text-center;
+    @apply has-data-[slot=alert-dialog-media]:grid-rows-[auto_auto_1fr] has-data-[slot=alert-dialog-media]:gap-x-6;
+  }
+
+  .sizeDefault .header {
+    @apply sm:place-items-start sm:text-left sm:has-data-[slot=alert-dialog-media]:grid-rows-[auto_1fr];
+  }
+
+  .media {
+    @apply mb-2 inline-flex size-16 items-center justify-center rounded-full bg-muted *:[svg:not([class*='size-'])]:size-8;
+  }
+
+  .sizeDefault .media {
+    @apply sm:row-span-2;
+  }
+
+  .title {
+    @apply font-heading text-lg font-medium;
+  }
+
+  .sizeDefault .header:has([data-slot="alert-dialog-media"]) .title {
+    @apply sm:col-start-2;
+  }
+
+  .description {
+    @apply text-sm text-balance text-muted-foreground md:text-pretty;
+    @apply *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground;
+  }
+
+  /* ---------- Footer: stacked on phones; `sm` keeps two equal columns ---------- */
+  .footer {
+    @apply flex flex-col-reverse gap-2 sm:flex-row sm:justify-end;
+  }
+
+  .sizeSm .footer {
+    @apply grid grid-cols-2;
+  }
+}

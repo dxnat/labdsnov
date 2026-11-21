@@ -1,0 +1,42 @@
+/*
+ * Empty styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * The root is `border-dashed` with no border width: pass `border` to show it.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply flex w-full min-w-0 flex-1 flex-col items-center justify-center gap-4 rounded-2xl border-dashed p-12 text-center text-balance;
+  }
+
+  .header {
+    @apply flex max-w-sm flex-col items-center gap-2;
+  }
+
+  .media {
+    @apply mb-2 flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0;
+  }
+
+  .mediaDefault {
+    @apply bg-transparent;
+  }
+
+  .mediaIcon {
+    @apply size-10 rounded-xl bg-muted text-foreground [&_svg:not([class*='size-'])]:size-5;
+  }
+
+  .title {
+    @apply font-heading text-lg font-medium tracking-tight;
+  }
+
+  .description {
+    @apply text-sm/relaxed text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary;
+  }
+
+  .content {
+    @apply flex w-full max-w-sm min-w-0 flex-col items-center gap-4 text-sm text-balance;
+  }
+}

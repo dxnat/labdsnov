@@ -1,0 +1,38 @@
+/*
+ * Breadcrumb styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .list {
+    @apply flex flex-wrap items-center gap-1.5 text-sm wrap-break-word text-muted-foreground sm:gap-2.5;
+  }
+
+  .item {
+    @apply inline-flex items-center gap-1.5;
+  }
+
+  .link {
+    @apply transition-colors hover:text-foreground;
+    @apply rounded-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/30;
+  }
+
+  .page {
+    @apply font-normal text-foreground;
+  }
+
+  .separator {
+    @apply [&>svg]:size-3.5;
+  }
+
+  .ellipsis {
+    @apply flex size-5 items-center justify-center [&>svg]:size-4;
+  }
+
+  .srOnly {
+    @apply sr-only;
+  }
+}

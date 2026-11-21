@@ -1,0 +1,21 @@
+/*
+ * DatePicker styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * The trigger is an outline Button; two-class selectors beat Button's own rules
+ * whatever the CSS load order.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .trigger.trigger {
+    @apply w-60 justify-start text-left font-normal;
+    @apply data-[empty=true]:text-muted-foreground;
+  }
+
+  /* The calendar sets its own padding; the popover shouldn't add more. */
+  .content.content {
+    @apply w-auto p-0;
+  }
+}

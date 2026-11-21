@@ -1,0 +1,79 @@
+/*
+ * Avatar styles: Tailwind utilities via @apply, kept out of the TSX.
+ * Rules live in the `components` layer so utilities passed via `className` win.
+ * shadcn's `group-data-[size=…]/avatar:` becomes `.sizeSm .fallback` etc.;
+ * the group count matches sizes via `:has([data-size=…])`.
+ */
+@reference "../../styles/reference.css";
+
+@layer theme, base, components, utilities; /* fix order even if this file loads before globals.css */
+
+@layer components {
+  .root {
+    @apply relative flex shrink-0 rounded-full select-none;
+    /* Hairline ring that stays visible on photos of any colour. */
+    @apply after:absolute after:inset-0 after:rounded-full after:border after:border-border after:mix-blend-darken;
+  }
+
+  :global(.dark) .root {
+    @apply after:mix-blend-lighten;
+  }
+
+  .sizeSm {
+    @apply size-6;
+  }
+
+  .sizeDefault {
+    @apply size-8;
+  }
+
+  .sizeLg {
+    @apply size-10;
+  }
+
+  .image {
+    @apply aspect-square size-full rounded-full object-cover;
+  }
+
+  .fallback {
+    @apply flex size-full items-center justify-center rounded-full bg-muted text-sm text-muted-foreground;
+  }
+
+  .sizeSm .fallback {
+    @apply text-xs;
+  }
+
+  /* ---------- Badge ---------- */
+  .badge {
+    @apply absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground ring-2 ring-background select-none;
+  }
+
+  .sizeSm .badge {
+    @apply size-2 [&>svg]:hidden;
+  }
+
+  .sizeDefault .badge {
+    @apply size-2.5 [&>svg]:size-2;
+  }
+
+  .sizeLg .badge {
+    @apply size-3 [&>svg]:size-2;
+  }
+
+  /* ---------- Group ---------- */
+  .group {
+    @apply flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background;
+  }
+
+  .groupCount {
+    @apply relative flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-sm text-muted-foreground ring-2 ring-background [&>svg]:size-4;
+  }
+
+  .group:has([data-size="sm"]) .groupCount {
+    @apply size-6 [&>svg]:size-3;
+  }
+
+  .group:has([data-size="lg"]) .groupCount {
+    @apply size-10 [&>svg]:size-5;
+  }
+}
